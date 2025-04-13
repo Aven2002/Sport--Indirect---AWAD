@@ -3,6 +3,7 @@
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\AddressController;
 use App\Http\Controllers\CartController;
+use App\Http\Controllers\FeedbackController;
 
 Route::get('/test', function () {
     return ('welcome');
@@ -15,3 +16,6 @@ Route::get('/address/{id}/user',[AddressController::class,'getUserAddress']);
 //Cart
 Route::post('/cart',[CartController::class,'store']);
 Route::delete('/cart/{id}',[CartController::class,'destroy']);
+
+//Feedback
+Route::resource('feedback',FeedbackController::class);
