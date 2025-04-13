@@ -2,6 +2,7 @@
 
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\AddressController;
+use App\Http\Controllers\CartController;
 
 Route::get('/test', function () {
     return ('welcome');
@@ -11,3 +12,6 @@ Route::get('/test', function () {
 Route::resource('address',AddressController::class);
 Route::get('/address/{id}/user',[AddressController::class,'getUserAddress']);
 
+//Cart
+Route::post('/cart',[CartController::class,'store']);
+Route::delete('/cart/{id}',[CartController::class,'destroy']);
