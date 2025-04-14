@@ -4,6 +4,7 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\AddressController;
 use App\Http\Controllers\CartController;
 use App\Http\Controllers\FeedbackController;
+use App\Http\Controllers\StoreController;
 
 Route::get('/test', function () {
     return ('welcome');
@@ -19,3 +20,6 @@ Route::delete('/cart/{id}',[CartController::class,'destroy']);
 
 //Feedback
 Route::resource('feedback',FeedbackController::class);
+
+//Store
+Route::resource('store',StoreController::class);
