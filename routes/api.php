@@ -6,6 +6,7 @@ use App\Http\Controllers\CartController;
 use App\Http\Controllers\CartDetailController;
 use App\Http\Controllers\FeedbackController;
 use App\Http\Controllers\StoreController;
+use App\Http\Controllers\OrderController;
 
 Route::get('/test', function () {
     return ('welcome');
@@ -28,3 +29,6 @@ Route::resource('feedback',FeedbackController::class);
 
 //Store
 Route::resource('store',StoreController::class);
+
+//Order
+Route::resource('order',OrderController::class);
