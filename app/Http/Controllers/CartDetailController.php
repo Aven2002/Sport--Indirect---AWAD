@@ -8,34 +8,6 @@ use App\Models\CartDetail;
 
 class CartDetailController extends Controller
 {
-    /**
-     * Retrieve all cart details info
-     */
-    public function index()
-    {
-        try{
-            $cartDetails = CartDetail::all();
-
-            if($cartDetails->isEmpty())
-            {
-                return response()->json([
-                    'message'=>'The table is empty'
-                ],404);
-            }
-
-            return response()->json([
-                'message'=>'All cart detail records retrieved successfully',
-                'cartDetails'=>$cartDetails
-            ],200);
-
-        }catch(\Exception $e)
-        {
-            return response()->json([
-                'message'=>'Something went wrong',
-                'error'=>$e->getMessage()
-            ],500);
-        }
-    }
 
     /**
      * Retrieve specific cart by id

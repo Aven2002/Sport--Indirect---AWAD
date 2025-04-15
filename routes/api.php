@@ -18,9 +18,8 @@ Route::resource('address',AddressController::class);
 Route::get('/address/{id}/user',[AddressController::class,'getUserAddress']);
 
 //Cart
-Route::post('/cart',[CartController::class,'store']);
-Route::delete('/cart/{id}',[CartController::class,'destroy']);
 Route::get('/cart/{id}/user',[CartController::class,'getUserCartId']);
+Route::resource('cart',CartController::class);
 
 //Cart Detail
 Route::resource('cartDetail',CartDetailController::class);

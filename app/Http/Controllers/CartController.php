@@ -8,7 +8,92 @@ use App\Models\Cart;
 
 class CartController extends Controller
 {
-   
+   /**
+    * Retrieve all cart 
+    */
+    public function index()
+    {
+        try{
+
+            $carts = Cart::all();
+
+            if($carts->isEmpty())
+            {
+                return response()->json([
+                    'message'=>'The table is empty'
+                ],404);
+            }
+
+            return response()->json([
+                'message'=>'All cart records retrieved successfully',
+                'carts'=>$carts
+            ],200);
+
+        }catch(\Exception $e)
+        {
+            return response()->json([
+                'message'=>'Something went wrong',
+                'error'=>$e->getMessage()
+            ],500);
+        }
+    }
+
+    /**
+    * Retrieve specific user cartID
+    */
+    public function getUserCartId($id)
+    {
+        try {
+            $cart = Cart::where('user_id', $id)->first();
+
+            if (!$cart) {
+                return response()->json([
+                    'message' => "User's cart ID not found"
+                ], 404);
+            }
+
+            return response()->json([
+                'message' => "User's cart ID retrieved successfully",
+                'cartId' => $cart->id
+            ], 200);
+
+        } catch (\Exception $e) {
+            return response()->json([
+                'message' => 'Something went wrong',
+                'error' => $e->getMessage()
+            ], 500);
+        }
+    }
+
+    /**
+     * Retrieve specific cart with details by id
+     */
+    public function show($id)
+    {
+        try{
+            $cart = Cart::with('cartDetail')->find($id);
+
+            if(!$cart)
+            {
+                return response()->json([
+                    'message'=>'Cart not found'
+                ],404);
+            }
+
+            return response()->json([
+                'message'=>'Cart record retrieved successfully',
+                'cart'=>$cart
+            ],200);
+
+        }catch(\Exception $e)
+        {
+            return response()->json([
+                'message'=>'Something went wrong',
+                'error'=>$e->getMessage()
+            ],500);
+        }
+    }
+
     /**
      * Remove the specific cart
      */
@@ -69,34 +154,4 @@ class CartController extends Controller
             ], 500);
         }
     }
-
-
-    /**
-    * Retrieve specific user cartID
-    */
-    public function getUserCartId($id)
-    {
-        try {
-            $cart = Cart::where('user_id', $id)->first();
-
-            if (!$cart) {
-                return response()->json([
-                    'message' => "User's cart ID not found"
-                ], 404);
-            }
-
-            return response()->json([
-                'message' => "User's cart ID retrieved successfully",
-                'cartId' => $cart->id
-            ], 200);
-
-        } catch (\Exception $e) {
-            return response()->json([
-                'message' => 'Something went wrong',
-                'error' => $e->getMessage()
-            ], 500);
-        }
-    }
-
-
 }
