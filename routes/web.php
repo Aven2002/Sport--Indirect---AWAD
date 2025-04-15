@@ -1,10 +1,18 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
-use App\Http\Controllers\ViewController;
 
 Route::get('/', function () {
     return view('welcome');
 });
 
-Route::get('/{view}',[ViewController::class,'show']);
+//Admin
+Route::view('/admin/dashboard', 'admin.dashboard')->name('admin.dashboard');
+Route::view('/admin/manage/products', 'admin.manageProducts.index')->name('admin.manageProducts');
+Route::view('/admin/manage/accounts', 'admin.manageAccounts.index')->name('admin.manageAccounts');
+Route::view('/admin/manage/feedbacks', 'admin.manageFeedbacks.index')->name('admin.manageFeedbacks');
+Route::view('/admin/manage/orders', 'admin.manageOrders.index')->name('admin.manageOrders');
+Route::view('/admin/manage/stores', 'admin.manageStores.index')->name('admin.manageStores');
+
+//User
+Route::view('/user/home', 'user.home')->name('user.home');

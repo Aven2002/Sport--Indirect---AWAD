@@ -15,13 +15,13 @@ class ProductController extends Controller
     public function index()
     {
         try{
-            $products = Product::all();
+            $products = Product::with('productDetail')->get();
 
             if($products->isEmpty())
             {
                 return response()->json([
                     'message'=>'The table is empty'
-                ],404);
+                ],200);
             }
 
             return response()->json([
@@ -50,7 +50,7 @@ class ProductController extends Controller
             {
                 return response()->json([
                     'message'=>'Product record not found'
-                ],404);
+                ],200);
             }
 
             return response()->json([
@@ -86,7 +86,7 @@ class ProductController extends Controller
             if ($product->detail) {
                 $imgPath = $product->detail->imgPath;
     
-                if ($imgPath && $imgPath !== 'img/default/_product.png') {
+                if ($imgPath && $imgPath !== 'img/Default/_product.png') {
                     $fullPath = public_path($imgPath);
                     if (file_exists($fullPath)) {
                         unlink($fullPath); 
@@ -128,7 +128,7 @@ class ProductController extends Controller
             ]);
 
             // Step 2: Process image (after validation)
-            $imagePath = 'img/default/_product.png';
+            $imagePath = 'Default/_product.png';
             if ($request->hasFile('image')) {
                 $image = $request->file('image');
                 $filename = Str::slug($validatedData['productName']) . '_' . time() . '.' . $image->getClientOriginalExtension();
@@ -203,7 +203,7 @@ class ProductController extends Controller
             if ($request->hasFile('image')) {
                 // Delete the old image if it's not the default image
                 $oldImagePath = public_path($imagePath);
-                if (file_exists($oldImagePath) && $imagePath !== 'img/default/_product.png') {
+                if (file_exists($oldImagePath) && $imagePath !== 'img/Default/_product.png') {
                     unlink($oldImagePath);
                 }
     

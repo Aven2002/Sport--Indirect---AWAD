@@ -8,14 +8,15 @@ use App\Http\Controllers\FeedbackController;
 use App\Http\Controllers\StoreController;
 use App\Http\Controllers\OrderController;
 use App\Http\Controllers\ProductController;
+use App\Http\Controllers\UserController;
 
 Route::get('/test', function () {
     return ('welcome');
 });
 
 //Address
-Route::resource('address',AddressController::class);
 Route::get('/address/{id}/user',[AddressController::class,'getUserAddress']);
+Route::resource('address',AddressController::class);
 
 //Cart
 Route::get('/cart/{id}/user',[CartController::class,'getUserCartId']);
@@ -25,6 +26,7 @@ Route::resource('cart',CartController::class);
 Route::resource('cartDetail',CartDetailController::class);
 
 //Feedback
+Route::get('/feedback/unread',[FeedbackController::class,'unreadCount']);
 Route::resource('feedback',FeedbackController::class);
 
 //Store
@@ -38,3 +40,6 @@ Route::get('/product/brand',[ProductController::class,'getProductBrand']);
 Route::get('/product/category',[ProductController::class,'getProductCategory']);
 Route::get('/product/sport/category',[ProductController::class,'getSportCategory']);
 Route::resource('product',ProductController::class);
+
+//User
+Route::resource('user',UserController::class);

@@ -1,0 +1,33 @@
+html, body {
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+}
+
+/* Ensure content expands to push footer to the bottom */
+.container.py-4 {
+    flex: 1;
+}
+
+/* Full-width footer without extra white space */
+footer {
+    position: relative;
+    bottom: 0;
+}
+
+/* Button Styling */
+.menu-btn {
+    color: black;
+    background-color: white;
+    transition: background 0.3s, color 0.3s;
+}
+
+.menu-btn:hover {
+    background-color: grey;
+    color: white;
+}
+
+.menu-btn.active {
+    background-color: black;
+    color: white;
+}

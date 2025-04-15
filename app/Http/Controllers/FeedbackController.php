@@ -20,7 +20,7 @@ class FeedbackController extends Controller
             {
                 return response()->json([
                     'message'=>'The table is empty'
-                ],404);
+                ],200);
             }
 
             return response()->json([
@@ -49,7 +49,7 @@ class FeedbackController extends Controller
             {
                 return response()->json([
                     'message'=>'Feedback record not found'
-                ],404);
+                ],200);
             }
             return response()->json([
                 'message'=>'Feedback record retrieved successfully',
@@ -130,5 +130,18 @@ class FeedbackController extends Controller
                 'error'=>$e->getMessage()
             ],500);
         }
+    }
+
+    /**
+     * Count the unread feedback
+     */
+    public function unreadCount()
+    {
+        $unreadFeedbacks = Feedback::where('status', false)->pluck('id');
+
+        return response()->json([
+            'unread_count' => $unreadFeedbacks->count(),
+            'unread_ids' => $unreadFeedbacks
+        ]);
     }
 }

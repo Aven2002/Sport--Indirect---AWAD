@@ -21,7 +21,7 @@ class OrderController extends Controller
             {
                 return response()->json([
                     'message'=>'The table is empty'
-                ],404);
+                ],200);
             }
 
             return response()->json([

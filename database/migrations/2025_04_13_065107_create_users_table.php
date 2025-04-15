@@ -19,7 +19,7 @@ return new class extends Migration
             $table->string('password');
             $table->date('dob');
             $table->json('security_answers');
-            $table->string('imgPath')->default('images/default/_profile.png');
+            $table->string('imgPath')->default('images/Default/_profile.png');
             $table->timestamps();
         });
     }
