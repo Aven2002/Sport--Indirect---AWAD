@@ -7,6 +7,7 @@ use App\Http\Controllers\CartDetailController;
 use App\Http\Controllers\FeedbackController;
 use App\Http\Controllers\StoreController;
 use App\Http\Controllers\OrderController;
+use App\Http\Controllers\ProductController;
 
 Route::get('/test', function () {
     return ('welcome');
@@ -32,3 +33,9 @@ Route::resource('store',StoreController::class);
 
 //Order
 Route::resource('order',OrderController::class);
+
+//Product
+Route::get('/product/brand',[ProductController::class,'getProductBrand']);
+Route::get('/product/category',[ProductController::class,'getProductCategory']);
+Route::get('/product/sport/category',[ProductController::class,'getSportCategory']);
+Route::resource('product',ProductController::class);

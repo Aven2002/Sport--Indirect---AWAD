@@ -15,7 +15,7 @@ return new class extends Migration
             $table->foreignid('product_id')->constrained()->onDelete('cascade')->primary();
             $table->text('description');
             $table->integer('stock');
-            $table->string('imgPath');
+            $table->string('imgPath')->default('images/default/_product.png');
             $table->decimal('price',10,2)->unsigned();
         });
     }
