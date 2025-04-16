@@ -13,9 +13,7 @@
 @section('content')
 
 <body>
-    <div class="container shadow-lg p-4 rounded bg-white">
-        <h2 class="text-center mb-4">Available Stores</h2>
-
+    <div class="container shadow-lg p-4 rounded bg-white mb-5">
         <div class="row" id="store-list">
         </div>
     </div>

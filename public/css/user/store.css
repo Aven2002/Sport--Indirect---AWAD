@@ -20,3 +20,8 @@
 .store-card .card-body .mt-auto {
     margin-top: auto; /* Pushes the button to the bottom */
 }
+
+.img-fluid {
+    margin: 30px;
+    padding: 30px;
+}
