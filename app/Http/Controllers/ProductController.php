@@ -259,7 +259,7 @@ class ProductController extends Controller
             if ($brands->isEmpty()) {
                 return response()->json([
                     'message' => 'Product brand not found'
-                ], 404);
+                ], 200);
             }
 
             return response()->json([
@@ -287,7 +287,7 @@ class ProductController extends Controller
             {
                 return response()->json([
                     'message'=>'Product category not found'
-                ],404);
+                ],200);
             }
 
             return response()->json([
@@ -316,7 +316,7 @@ class ProductController extends Controller
                 {
                     return response()->json([
                         'message'=>'Sport category not found'
-                    ],404);
+                    ],200);
                 }
 
                 return response()->json([

@@ -32,7 +32,7 @@ let selectedMaxPrice = 3000;
 function fetchProducts() {
     axios.get("/api/product")
         .then(response => {
-            productsData = response.data.products;
+            productsData = response.data.products ?? [];
             filteredProducts = [...productsData];
             renderProducts(productsData);
         })
@@ -100,15 +100,40 @@ function renderProducts(products) {
 }
 
 function loadFilters() {
+    // For Product Category
     axios.get('/api/product/category')
-        .then(res => populateFilterList('category-list', res.data.productCategory, 'productCategory'));
+        .then(res => {
+            if (res.data.productCategory && Array.isArray(res.data.productCategory)) {
+                populateFilterList('category-list', res.data.productCategory, 'productCategory');
+            } else {
+                console.log('No product categories available');
+            }
+        })
+        .catch(error => console.error('Error fetching product categories:', error));
 
+    // For Product Brands
     axios.get('/api/product/brand')
-        .then(res => populateFilterList('brand-list', res.data.productBrands, 'productBrand'));
+        .then(res => {
+            if (res.data.productBrands && Array.isArray(res.data.productBrands)) {
+                populateFilterList('brand-list', res.data.productBrands, 'productBrand');
+            } else {
+                console.log('No product brands available');
+            }
+        })
+        .catch(error => console.error('Error fetching product brands:', error));
 
+    // For Sport Categories
     axios.get('/api/product/sport/category')
-        .then(res => populateFilterList('sport-category-list', res.data.sportCategory, 'sportCategory'));
+        .then(res => {
+            if (res.data.sportCategory && Array.isArray(res.data.sportCategory)) {
+                populateFilterList('sport-category-list', res.data.sportCategory, 'sportCategory');
+            } else {
+                console.log('No sport categories available');
+            }
+        })
+        .catch(error => console.error('Error fetching sport categories:', error));
 }
+
 
 function populateFilterList(elementId, dataList, fieldName) {
     const list = document.getElementById(elementId);
