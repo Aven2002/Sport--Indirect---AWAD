@@ -97,45 +97,6 @@ class UserController extends Controller
     }
 
     /**
-     * Store a newly created user record
-     */
-    public function store(Request $request)
-    {
-        try{
-            
-            $validatedData = $request->validate([
-                'email'=>'required|string',
-                'username'=>'required|string',
-                'password'=>'required|string',
-                'dob'=>'required|date',
-                'profileImg'=>'required|string',
-                'security_answers'=>'required|text',
-            ]);
-
-            $user = User::create($validatedData);
-
-            return response()->json([
-                'message'=>'User created successfully',
-                'user'=>$user
-            ],201);
-
-        }catch(ValidationException $e)
-        {
-            return response()->json([
-                'message'=>"Validation error",
-                'errors'=>$e->errors()
-            ],422);
-
-        }catch(\Exception $e)
-        {
-            return response()->json([
-                'message'=>'Something went wrong',
-                'error'=>$e->getMessage()
-            ],500);
-        }
-    }
-
-    /**
      * Update specific user record
      */
     public function update(Request $request, $id)
