@@ -39,6 +39,7 @@ Route::resource('order',OrderController::class);
 Route::get('/product/brand',[ProductController::class,'getProductBrand']);
 Route::get('/product/category',[ProductController::class,'getProductCategory']);
 Route::get('/product/sport/category',[ProductController::class,'getSportCategory']);
+Route::get('/product/search-products', [ProductController::class, 'search']);
 Route::resource('product',ProductController::class);
 
 //User

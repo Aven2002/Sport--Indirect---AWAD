@@ -1,0 +1,92 @@
+.product-card .card {
+    height: 100%; /* Ensure all cards have the same height */
+    display: flex;
+    flex-direction: column;
+}
+
+.product-card img {
+    width: 100%;
+    height: 200px; /* Set a fixed height */
+    object-fit: contain; /* Ensures the full image is visible without cropping */
+    padding: 10px; /* Add some spacing */
+    background-color: #fff; /* Ensure a clean background */
+}
+
+.product-card .card-body {
+    display: flex;
+    flex-direction: column;
+    align-items: center; /* Center content horizontally */
+    justify-content: center; /* Center content vertically */
+}
+
+.product-card h4 {
+    min-height: 30px; /* Prevent titles from making cards uneven */
+}
+
+.product-card p.fw-bold {
+    margin-top: auto; /* Push price to the bottom */
+}
+
+.bg-warning{
+    width:fit-content;
+}
+
+.badge-container {
+    display: flex;
+    justify-content: center;
+    gap: 20px; /* Adjust spacing between badges */
+}
+
+/* Slider container */
+#price-range {
+    width: 100%;
+    height: 12px;
+    background: #ddd;
+    border-radius: 5px;
+    margin-top: 10px;
+    transition: background 0.3s ease-in-out;
+}
+
+/* Slider handle */
+#price-range::-webkit-slider-thumb {
+    -webkit-appearance: none;
+    appearance: none;
+    width: 20px;
+    height: 20px;
+    background-color: #007bff;
+    border-radius: 50%;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+/* Slider handle hover effect */
+#price-range::-webkit-slider-thumb:hover {
+    background-color: #0056b3;
+}
+
+/* For Firefox */
+#price-range::-moz-range-thumb {
+    width: 20px;
+    height: 20px;
+    background-color: #007bff;
+    border-radius: 50%;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+/* When the slider is active */
+#price-range:active {
+    background: #007bff;
+}
+
+/* Style for labels */
+#price-value-label {
+    font-size: 16px;
+    font-weight: bold;
+    color: #007bff;
+}
+
+.img-fluid {
+    margin: 30px;
+    padding: 30px;
+}

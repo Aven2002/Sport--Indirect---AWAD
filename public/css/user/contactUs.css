@@ -1,0 +1,95 @@
+/* General Page Styling */
+body {
+    font-family: Arial, sans-serif;
+    background-color: #f8f9fa !important;
+    color: black;
+}
+
+/* Contact Page Container */
+.contact-page {
+    max-width: 600px;
+    margin: 40px auto;
+    padding: 40px;
+    background-color: white !important; /* Ensure transparency is applied */
+    border-radius: 8px;
+    box-shadow: 0px 2px 8px rgba(0, 0, 0, 0.2);
+}
+
+.contact-page form {
+    background: transparent !important; /* Prevents form fields from having a different background */
+}
+
+
+/* Ensure all text in the form is black */
+.contact-page label,
+.contact-page input,
+.contact-page textarea,
+.contact-page p,
+.contact-page h2 {
+    color: black !important;
+}
+
+/* Page Header */
+.contact-page h2 {
+    text-align: center;
+    margin-bottom: 20px;
+    color: #050505;
+}
+
+.contact-page p {
+    text-align: center;
+    margin-bottom: 20px;
+    color: #000000;
+}
+
+/* Form Styling */
+.form-group {
+    margin-bottom: 15px;
+}
+
+.form-group label {
+    display: block;
+    font-weight: 600;
+    margin-bottom: 5px;
+    color: #000000;
+}
+
+/* Bootstrap Form Inputs */
+.form-group input,
+.form-group textarea {
+    width: 100%;
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    font-size: 16px;
+    background: #fff;
+}
+
+/* Bootstrap Button */
+.btn.submit-btn {
+    display: block;
+    width: 100%;
+    padding: 12px;
+    background: #007bff; /* Bootstrap Primary Blue */
+    color: #fff;
+    border: none;
+    border-radius: 4px;
+    font-size: 16px;
+    cursor: pointer;
+    transition: background 0.3s ease-in-out;
+}
+
+.btn.submit-btn:hover {
+    background: #0056b3;
+}
+.contact-page p.text-center {
+    color: white !important;
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+    .contact-page {
+        width: 90%;
+        padding: 20px;
+    }
+}

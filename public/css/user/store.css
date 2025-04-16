@@ -1,0 +1,22 @@
+.store-card {
+    display: flex;
+    flex-direction: column;
+    height: 100%; /* Ensures all cards are the same height */
+}
+
+.store-card img {
+    width: 100%;
+    height: 220px;
+    object-fit: cover;
+    border-top-left-radius: 8px;
+    border-top-right-radius: 8px;
+}
+
+.store-card .card-body {
+    display: flex;
+    flex-direction: column;
+}
+
+.store-card .card-body .mt-auto {
+    margin-top: auto; /* Pushes the button to the bottom */
+}

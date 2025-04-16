@@ -1,0 +1,48 @@
+.brand-logo {
+    width: 130px;  /* Adjust width for consistency */
+    height: 80px;  /* Maintain aspect ratio */
+    cursor: pointer;
+    transition: transform 0.2s ease-in-out;
+}
+
+.brand-logo:hover {
+    transform: scale(1.1); /* Slight zoom effect on hover */
+}
+
+.sport-logo{
+    width: 230px;  /* Adjust width for consistency */
+    height: 180px;  /* Maintain aspect ratio */
+    cursor: pointer;
+    transition: transform 0.2s ease-in-out;
+}
+
+.carousel-inner {
+    display: flex;
+}
+
+.carousel-item {
+    flex: 0 0 100%;
+    display: flex;
+    justify-content: space-between;
+}
+
+.product-card {
+    flex: 1;
+    padding: 5px;
+    min-width: 16%; /* Adjust for 5 items per row */
+    max-width: 16%;
+}
+
+@media (max-width: 992px) { /* Medium screens: 3 items */
+    .product-card {
+        min-width: 30%;
+        max-width: 30%;
+    }
+}
+
+@media (max-width: 768px) { /* Small screens: 2 items */
+    .product-card {
+        min-width: 45%;
+        max-width: 45%;
+    }
+}

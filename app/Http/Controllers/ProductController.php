@@ -331,6 +331,19 @@ class ProductController extends Controller
                   'error'=>$e->getMessage()
             ],500);
         }
-    }    
+    }  
+    
+    /**
+     * Search engine
+     */
+    public function search(Request $request)
+    {
+        $searchTerm = $request->input('search');
+
+        $products = Product::with('productDetail')->where('productName', 'like', '%' . $searchTerm . '%')->get();
+
+        return response()->json($products);
+    }
+
         
 }

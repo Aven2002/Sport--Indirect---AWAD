@@ -1,0 +1,61 @@
+/* Global Body Styles */
+body {
+    background-color: #fff !important;
+    color: #000;
+    font-family: Arial, sans-serif;
+}
+
+/* About Page Container */
+.about-page {
+    max-width: 1100px;
+    margin: auto;
+}
+
+/* Page Title */
+.about-page h1 {
+    font-size: 50px;
+    font-weight: bold;
+}
+
+/* Company Background Section */
+/* Continuous Rotation */
+@keyframes spin {
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
+}
+
+.rotate-logo {
+    animation: spin 3s linear infinite; 
+    width: 15%;
+    height: 15%;
+}
+
+.background-image {
+    width: 35%;
+    max-height: 500px;
+    object-fit: cover;
+    border-radius: 8px;
+}
+
+.company-description {
+    font-size: 20px;
+    line-height: 1.6;
+}
+
+/* Vision & Mission Sections */
+section h2 {
+    font-size: 28px;
+    margin-bottom: 15px;
+    font-weight:bold;
+}
+section p {
+    font-size: 16px;
+    line-height: 1.6;
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+    .background-image {
+        width: 50%;
+    }
+}

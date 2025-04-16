@@ -16,3 +16,15 @@ Route::view('/admin/manage/stores', 'admin.manageStores.index')->name('admin.man
 
 //User
 Route::view('/user/home', 'user.home')->name('user.home');
+Route::view('/user/cart', 'user.cart')->name('user.cart');
+Route::view('/user/profile', 'user.profile')->name('user.profile');
+Route::view('/user/store', 'user.store')->name('user.store');
+Route::view('/user/product','user.product')->name('user.product');
+Route::view('/user/product/detail/{id}','user.productDetail')->name('user.productDetail');
+Route::view('/user/contactUs','user.contactUs')->name('user.contactUs');
+Route::view('/user/aboutUs','user.aboutUs')->name('user.aboutUs');
+Route::view('/user/help','user.help')->name('user.help');
+
+
+//General 
+Route::view('/', 'landing')->name('landing');
