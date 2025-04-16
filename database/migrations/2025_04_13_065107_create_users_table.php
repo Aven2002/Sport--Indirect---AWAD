@@ -18,7 +18,6 @@ return new class extends Migration
             $table->string('username', 30)->unique();
             $table->string('password');
             $table->date('dob');
-            $table->json('security_answers');
             $table->string('imgPath')->default('images/Default/_profile.png');
             $table->timestamp('email_verified_at')->nullable(); // For email verification
             $table->rememberToken(); // For "remember me" functionality

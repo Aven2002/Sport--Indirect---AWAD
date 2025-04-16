@@ -42,8 +42,7 @@ class RegisteredUserController extends Controller
             'imgPath'=> ['required', 'string']
         ]);
 
-        // Debugging output
-    dd($validatedData);
+        $validatedData['password'] = bcrypt($validatedData['password']);
 
         $user = User::create($validatedData);
 
@@ -51,6 +50,6 @@ class RegisteredUserController extends Controller
 
         Auth::login($user);
 
-        return redirect()->route('dashboard');
+        return redirect()->route('landing');
     }
 }

@@ -14,13 +14,13 @@
                 @foreach($images as $img)
                     <label class="flex flex-col items-center border p-2 rounded hover:bg-gray-100 cursor-pointer">
                         <img src="{{ asset($img) }}" alt="Profile Image" class="w-16 h-16 object-cover rounded-full">
-                        <input type="radio" name="profileImg" value="{{ $img }}" class="mt-2" required>
+                        <input type="radio" name="imgPath" value="{{ $img }}" class="mt-2" required>
                     </label>
                 @endforeach
             </div>
-            <x-input-error :messages="$errors->get('profileImg')" class="mt-2" />
+            <x-input-error :messages="$errors->get('imgPath')" class="mt-2" />
         </div>
-        
+
         <!-- Username -->
         <div class="mt-4">
             <x-input-label for="username" :value="__('Username')" />
