@@ -10,7 +10,7 @@ body {
     max-width: 600px;
     margin: 40px auto;
     padding: 40px;
-    background-color: white !important; /* Ensure transparency is applied */
+    background-color: white !important; 
     border-radius: 8px;
     box-shadow: 0px 2px 8px rgba(0, 0, 0, 0.2);
 }
@@ -92,4 +92,8 @@ body {
         width: 90%;
         padding: 20px;
     }
+}
+
+.container {
+    max-width: 90%;
 }

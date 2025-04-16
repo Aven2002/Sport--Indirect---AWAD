@@ -116,9 +116,6 @@ function viewProduct(productId) {
         });
 }
 
-
-
-
 window.deleteProduct = function (id) {
     // Fetch product details to display in the modal
     axios.get(`/api/product/${id}`)

@@ -19,8 +19,8 @@ function fetchStores() {
                             <div class="card-body d-flex flex-column">
                                 <h5 class="card-title">${store.storeName}</h5>
                                 <p class="card-text">${store.address}</p>
-                                <p class="text-muted"><strong>Hours:</strong> ${store.operationHour}</p>
-                                <p class="text-muted"><strong>Phone:</strong> ${store.phoneNo}</p>
+                                <p class="text-muted"><strong>Hours:</strong> ${store.operation}</p>
+                                <p class="text-muted"><strong>Phone:</strong> ${store.contactNum}</p>
                                 <div class="mt-auto">
                                     <a href="${googleMapsUrl}" class="btn btn-primary w-100" target="_blank">
                                         Open in Google Maps
