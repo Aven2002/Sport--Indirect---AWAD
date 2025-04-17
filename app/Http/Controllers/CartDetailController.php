@@ -22,7 +22,7 @@ class CartDetailController extends Controller
             {
                 return response()->json([
                     'message'=>'Cart Detail not found'
-                ],404);
+                ],200);
             }
 
             return response()->json([
