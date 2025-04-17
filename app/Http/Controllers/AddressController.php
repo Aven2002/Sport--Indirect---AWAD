@@ -78,7 +78,7 @@ class AddressController extends Controller
             {
                 return response()->json([
                     'message'=> 'No address found for this user'
-                ],404);
+                ],200);
             }
 
             return response()->json([
@@ -142,6 +142,12 @@ class AddressController extends Controller
                 'postcode' => 'required|digits:5',
                 'isDefault' => 'boolean'
             ]);
+
+            if (!empty($validatedData['isDefault']) && $validatedData['isDefault']) {
+                Address::where('user_id', $validatedData['user_id'])
+                    ->where('isDefault', true)
+                    ->update(['isDefault' => false]);
+            }
 
             $address = Address::create($validatedData);
 
@@ -213,5 +219,32 @@ class AddressController extends Controller
             ],500);
         }
     }
-    
+
+    public function setDefault($id)
+    {
+        try {
+            $address = Address::find($id);
+
+            if (!$address) {
+                return response()->json(['message' => 'Address not found'], 404);
+            }
+
+            // Unset current default for the same user
+            Address::where('user_id', $address->user_id)
+                ->where('isDefault', true)
+                ->update(['isDefault' => false]);
+
+            // Set this one as default
+            $address->isDefault = true;
+            $address->save();
+
+            return response()->json(['message' => 'Default address updated successfully'], 200);
+
+        } catch (\Exception $e) {
+            return response()->json([
+                'message' => 'Something went wrong',
+                'error' => $e->getMessage()
+            ], 500);
+        }
+    }
 }

@@ -26,6 +26,8 @@ Route::view('/admin/manage/stores', 'admin.manageStores.index')->name('admin.man
 //User
 Route::view('/user/home', 'user.home')->name('user.home');
 Route::view('/user/cart', 'user.cart')->name('user.cart');
+Route::view('/user/address', 'user.address')->name('user.address');
+Route::view('/user/checkout','user.checkout')->name('user.checkout');
 Route::view('/user/profile', 'user.profile')->name('user.profile');
 Route::view('/user/store', 'user.store')->name('user.store');
 Route::view('/user/product','user.product')->name('user.product');

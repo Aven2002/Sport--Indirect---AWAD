@@ -16,6 +16,7 @@ Route::get('/test', function () {
 
 //Address
 Route::get('/address/{id}/user',[AddressController::class,'getUserAddress']);
+Route::post('/address/{id}/set-default', [AddressController::class, 'setDefault']);
 Route::resource('address',AddressController::class);
 
 //Cart
