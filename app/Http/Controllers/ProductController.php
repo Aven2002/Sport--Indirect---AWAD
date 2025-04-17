@@ -44,7 +44,7 @@ class ProductController extends Controller
     public function show($id)
     {
         try{
-            $product = Product::with('productDetail')->find($id);
+            $product = Product::with(['productDetail', 'productStocks'])->find($id);
 
             if(!$product)
             {

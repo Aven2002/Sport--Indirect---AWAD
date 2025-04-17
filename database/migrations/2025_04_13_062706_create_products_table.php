@@ -17,6 +17,7 @@ return new class extends Migration
             $table->string('sportCategory',50);
             $table->string('productCategory',50);
             $table->string('productBrand',50);
+            $table->boolean('has_sizes')->default(false);
             $table->timestamps();
         });
     }

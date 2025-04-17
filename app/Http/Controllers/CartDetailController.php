@@ -75,48 +75,44 @@ class CartDetailController extends Controller
      */
     public function store(Request $request)
     {
-        try{
+        try {
             $validatedData = $request->validate([
-                'cart_id'=>'required|integer',
-                'product_id'=>'required|integer',
-                'quantity'=>'required|integer'
+                'items' => 'required|array|min:1',
+                'items.*.cart_id' => 'required|integer',
+                'items.*.product_id' => 'required|integer',
+                'items.*.size' => 'nullable|string',
+                'items.*.quantity' => 'required|integer|min:1'
             ]);
 
-            $existingDetail = CartDetail::where('cart_id',$validatedData['cart_id'])
-            ->where('product_id',$validatedData['product_id'])
-            ->first();
+            foreach ($validatedData['items'] as $item) {
+                $existingDetail = CartDetail::where('cart_id', $item['cart_id'])
+                    ->where('product_id', $item['product_id'])
+                    ->where('size', $item['size'])
+                    ->first();
 
-            if($existingDetail)
-            {
-                $existingDetail->quantity += $validatedData['quantity'];
-                $existingDetail->save();
-
-                return response()->json([
-                    'message'=>'The item already exist in the cart. Quantity added',
-                ],200);
-                
-            }else
-            {
-                $cartDetail = CartDetail::create($validatedData);
-
-                return response()->json([
-                    'message'=>'Cart detail created successfully',
-                    'cartDetail'=>$cartDetail
-                ],201);
+                if ($existingDetail) {
+                    $existingDetail->quantity += $item['quantity'];
+                    $existingDetail->save();
+                } else {
+                    CartDetail::create($item);
+                }
             }
 
-        }catch(ValidationException $e)
-        {
             return response()->json([
-                'message'=>'Validation error',
-                'errors'=>$e->errors()
-            ],422);
-        }catch(\Exception $e)
-        {
+                'message' => 'Cart items processed successfully.'
+            ], 201);
+
+        } catch (ValidationException $e) {
             return response()->json([
-                'message'=>'Something went wrong',
-                'error'=>$e->getMessage()
-            ],500);
+                'message' => 'Validation error',
+                'errors' => $e->errors()
+            ], 422);
+        } catch (\Exception $e) {
+            return response()->json([
+                'message' => 'Something went wrong',
+                'error' => $e->getMessage()
+            ], 500);
         }
     }
+
 }

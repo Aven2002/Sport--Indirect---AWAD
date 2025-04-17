@@ -20,12 +20,7 @@ class UserSeeder extends Seeder
                 'userRole' => 'Admin',
                 'username' => 'Admin',
                 'password' => Hash::make('admin123'),
-                'dob' => '1990-01-01',
-                'security_answers' => json_encode([
-                    'question1' => 'admin_answer1',
-                    'question2' => 'admin_answer2',
-                    'question3' => 'admin_answer3'
-                ]),
+                'dob' => '1990-01-01'
             ]
         );
 
@@ -34,12 +29,7 @@ class UserSeeder extends Seeder
             [
                 'username' => 'User',
                 'password' => Hash::make('user123'),
-                'dob' => '1990-01-01',
-                'security_answers' => json_encode([
-                    'question1' => 'user_answer1',
-                    'question2' => 'user_answer2',
-                    'question3' => 'user_answer3'
-                ])
+                'dob' => '1990-01-01'
             ]
                 );
     }

@@ -11,14 +11,14 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('cart_details', function (Blueprint $table) {
-            $table->id(); //Because the save() have to refer this primary key
-            $table->unique(['cart_id', 'product_id', 'size']);
-            $table->foreignId('cart_id')->constrained()->onDelete('cascade');
+        Schema::create('product_stock', function (Blueprint $table) {
+            $table->id();
             $table->foreignId('product_id')->constrained()->onDelete('cascade');
-            $table->string('size')->nullable(); 
-            $table->integer('quantity');
+            $table->string('size'); 
+            $table->integer('stock')->unsigned();
             $table->timestamps();
+
+            $table->unique(['product_id', 'size']);
         });
     }
 
@@ -27,6 +27,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('cart_details');
+        Schema::dropIfExists('product_stock');
     }
 };

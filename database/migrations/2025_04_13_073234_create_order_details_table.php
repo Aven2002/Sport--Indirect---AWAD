@@ -12,12 +12,12 @@ return new class extends Migration
     public function up(): void
     {
         Schema::create('order_details', function (Blueprint $table) {
+            $table->unique(['order_id', 'product_id', 'size']);
             $table->foreignId('order_id')->constrained()->onDelete('cascade');
             $table->foreignId('product_id')->constrained();
+            $table->string('size')->nullable(); 
             $table->integer('quantity');
             $table->decimal('subPrice',10,2)->unsigned();
-            $table->primary(['order_id','product_id']); //Ensure only one row record for the exactly same orderID and productId
-
         });
     }
 

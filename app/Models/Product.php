@@ -13,10 +13,16 @@ class Product extends Model
         'sportCategory',
         'productCategory',
         'productBrand',
+        'has_sizes'
     ];
 
     public function productDetail()
     {
         return $this->hasOne(ProductDetail::class);
+    }
+
+    public function productStocks()
+    {
+        return $this->hasMany(ProductStock::class);
     }
 }

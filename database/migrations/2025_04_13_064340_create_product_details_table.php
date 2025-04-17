@@ -14,7 +14,7 @@ return new class extends Migration
         Schema::create('productDetails', function(Blueprint $table){
             $table->foreignid('product_id')->constrained()->onDelete('cascade')->primary();
             $table->text('description');
-            $table->integer('stock');
+            $table->integer('stock')->nullable();
             $table->string('imgPath')->default('images/Default/_product.png');
             $table->decimal('price',10,2)->unsigned();
         });

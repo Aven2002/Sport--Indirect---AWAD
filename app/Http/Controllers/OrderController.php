@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use Illuminate\Validation\ValidationException;
 use App\Models\Order;
+use Illuminate\Support\Facades\Log;
 
 class OrderController extends Controller
 {
@@ -45,7 +46,7 @@ class OrderController extends Controller
     {
         try{
 
-            $order = Order::find($id);
+            $order = Order::with('orderDetail')->find($id);
 
             if(!$order)
             {
@@ -103,82 +104,61 @@ class OrderController extends Controller
      */
     public function store(Request $request)
     {
-        try{
-
+        try {
             $validatedData = $request->validate([
-                'user_id'=>'required|integer',
-                'address_id'=>'required|integer',
-                'totalPrice'=>'required|numeric|regex:/^\d+(\.\d{1,2})?$/',
-                'paymentMethod'=>'required|string',
-                'status'=>'nullable|string'
+                'user_id' => 'required|integer',
+                'address_id' => 'required|integer',
+                'totalPrice' => 'required|numeric|regex:/^\d+(\.\d{1,2})?$/',
+                'paymentMethod' => 'required|string',
+                'status' => 'nullable|string',
+                'items' => 'required|array|min:1',
+                'items.*.product_id' => 'required|integer',
+                'items.*.size' => 'nullable|string',
+                'items.*.quantity' => 'required|integer|min:1',
+                'items.*.subPrice' => 'required|numeric|regex:/^\d+(\.\d{1,2})?$/',
             ]);
 
-            $order = Order::create($validatedData);
+            // Create the order
+            $order = Order::create([
+                'user_id' => $validatedData['user_id'],
+                'address_id' => $validatedData['address_id'],
+                'totalPrice' => $validatedData['totalPrice'],
+                'paymentMethod' => $validatedData['paymentMethod'],
+                'status' => $validatedData['status'] ?? 'Pending',
+            ]);
 
-            return response()->json([
-                'message'=>'Order record created successfully',
-                'order'=>$order
-            ],201);
+            // Loop through items and insert into order_details
+            foreach ($validatedData['items'] as $item) {
 
-        }catch(ValidationException $e)
-        {
-            return response()->json([
-                'message'=>'Validation error',
-                'errors'=>$e->errors()
-            ],422);
+                Log::info('Processing item for order', [
+                    'product_id' => $item['product_id'],
+                    'size' => $item['size'] ?? null
+                ]);
 
-        }catch(\Exception $e)
-        {
-            return response()->json([
-                'message'=>'Something went wrong',
-                'error'=>$e->getMessage()
-            ],500);
-        }
-    }
-
-    /**
-     * Update specific order record
-     */
-    public function update(Request $request, $id)
-    {
-        try{
-            $order = Order::find($id);
-
-            if(!$order)
-            {
-                return response()->json([
-                    'message'=>'Order record not found',
-                ],404);
+                $order->orderDetail()->create([
+                    'product_id' => $item['product_id'],
+                    'size' => $item['size'] ?? null,
+                    'quantity' => $item['quantity'],
+                    'subPrice' => $item['subPrice'],
+                ]);
             }
-               
-            $validatedData = $request->validate([
-                'user_id'=>'required|integer',
-                'address_id'=>'required|integer',
-                'totalPrice'=>'required|numeric|regex:/^\d+(\.\d{1,2})?$/',
-                'paymentMethod'=>'required|string',
-                'status'=>'nullable|string'
-            ]);
-
-            $order->update($validatedData);
 
             return response()->json([
-                'message'=>'Order record updated successfully',
-                'order'=>$order
-            ],200);
+                'message' => 'Order created successfully with all item details.',
+                'order' => $order->load('orderDetail')
+            ], 201);
 
-        }catch(ValidationException $e)
-        {
+        } catch (ValidationException $e) {
             return response()->json([
-                'message'=>'Validation error',
-                'errors'=>$e->errors()
-            ],422);
+                'message' => 'Validation error',
+                'errors' => $e->errors()
+            ], 422);
 
-        }catch(\Exception $e)
-        {
+        } catch (\Exception $e) {
             return response()->json([
-                'message'=>'Something went wrong',
-                'error'=>$e->getMessage()
-            ],500);
+                'message' => 'Something went wrong',
+                'error' => $e->getMessage()
+            ], 500);
         }
     }
 }

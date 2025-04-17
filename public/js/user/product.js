@@ -1,6 +1,16 @@
 document.addEventListener("DOMContentLoaded", function () {
+    const urlParams = new URLSearchParams(window.location.search);
+    selectedCategory = urlParams.get("category") || null;
+    selectedBrand = urlParams.get("brand") || null;
+    selectedSportCategory = urlParams.get("sport") || null;
+    selectedMaxPrice = parseInt(urlParams.get("price")) || 3000;
+
+    document.getElementById("price-range").value = selectedMaxPrice;
+    document.getElementById("price-value-label").textContent = `RM ${selectedMaxPrice}`;
+
     fetchProducts();
     loadFilters();
+   
 
     document.getElementById("clear-filters").addEventListener("click", clearFilters);
 
@@ -9,7 +19,8 @@ document.addEventListener("DOMContentLoaded", function () {
     priceSlider.addEventListener("input", function () {
         selectedMaxPrice = parseInt(this.value);
         priceLabel.textContent = `RM ${selectedMaxPrice}`;
-        applyFilters(); // Reapply all filters with new max price
+        applyFilters();
+        updateURL(); 
     });
 
     const sortDropdown = document.getElementById("sort");
@@ -17,24 +28,20 @@ document.addEventListener("DOMContentLoaded", function () {
         const selectedOption = this.value;
         sortProducts(selectedOption);
     });
-
 });
+
 
 
 let productsData = [];
 let filteredProducts = [];
 let currentSortOption = "newest"; 
-let selectedCategory = null;
-let selectedBrand = null;
-let selectedSportCategory = null;
-let selectedMaxPrice = 3000;
 
 function fetchProducts() {
     axios.get("/api/product")
         .then(response => {
             productsData = response.data.products ?? [];
             filteredProducts = [...productsData];
-            renderProducts(productsData);
+            applyFilters();
         })
         .catch(error => {
             console.error("Error fetching products:", error);
@@ -62,7 +69,6 @@ function renderProducts(products) {
     productContainer.innerHTML = ""; // Clear previous content
 
     if (products.length === 0) {
-        // No products match the filter, show default "no match" image
         let noMatchImage = `
             <div class="col-12 text-center">
                 <img src="/images/Default/_ntg-match.png" alt="No matches found" class="img-fluid">
@@ -175,19 +181,22 @@ function applyFilters(fieldName, value) {
     if (fieldName === "productBrand") selectedBrand = value;
     if (fieldName === "sportCategory") selectedSportCategory = value;
 
+    updateURL(); 
+
     filteredProducts = productsData.filter(product => {
         const matchesCategory = !selectedCategory || product.productCategory === selectedCategory;
         const matchesBrand = !selectedBrand || product.productBrand === selectedBrand;
         const matchesSport = !selectedSportCategory || product.sportCategory === selectedSportCategory;
 
         const price = product.product_detail?.price ? parseFloat(product.product_detail.price) : 0;
-        const matchesPrice = price <= selectedMaxPrice;        
+        const matchesPrice = price <= selectedMaxPrice;
 
         return matchesCategory && matchesBrand && matchesSport && matchesPrice;
     });
 
-    sortProducts(currentSortOption); 
+    sortProducts(currentSortOption);
 }
+
 
 function clearFilters() {
     // Reset filter values
@@ -214,6 +223,9 @@ function clearFilters() {
     // Reset filtered products to all products
     filteredProducts = [...productsData];
 
+    const newUrl = window.location.pathname;
+    history.replaceState(null, '', newUrl);
+
     // Re-render products and apply current sort
     renderProducts(filteredProducts);
     sortProducts(currentSortOption);
@@ -231,7 +243,7 @@ function resetFilterUI(filterListId) {
 function sortProducts(sortOption) {
     currentSortOption = sortOption;
 
-    let sortedProducts = [...filteredProducts]; // Sort based on filtered data
+    let sortedProducts = [...filteredProducts]; 
 
     switch (sortOption) {
         case "newest":
@@ -252,6 +264,18 @@ function sortProducts(sortOption) {
 
     // Render the sorted products
     renderProducts(sortedProducts);
+}
+
+function updateURL() {
+    const params = new URLSearchParams();
+
+    if (selectedCategory) params.set("category", selectedCategory);
+    if (selectedBrand) params.set("brand", selectedBrand);
+    if (selectedSportCategory) params.set("sport", selectedSportCategory);
+    if (selectedMaxPrice !== 3000) params.set("price", selectedMaxPrice);
+
+    const newUrl = `${window.location.pathname}?${params.toString()}`;
+    history.replaceState(null, '', newUrl);
 }
 
 

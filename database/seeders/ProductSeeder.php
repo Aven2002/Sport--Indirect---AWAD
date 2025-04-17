@@ -5,6 +5,7 @@ namespace Database\Seeders;
 use Illuminate\Database\Seeder;
 use App\Models\Product;
 use App\Models\ProductDetail;
+use App\Models\ProductStock;
 
 class ProductSeeder extends Seeder
 {
@@ -362,8 +363,9 @@ class ProductSeeder extends Seeder
                 'sportCategory' => 'Multi-Sport',
                 'productCategory' => 'Footwear',
                 'productBrand' => 'YONEX',
+                'has_sizes' => true,
                 'description' => "A high-performance sport shoe available in White and Black, crafted with Synthetic Fiber and Synthetic Resin for durability. Features a Rubber Sole for excellent grip. Equipped with advanced technologies like Power Cushion for superior shock absorption, Double Raschel Mesh for breathability, Durable Skin Light for a lightweight feel, Power Graphite Sheet for stability, and Feather Bounce Foam for enhanced responsiveness on the court.",
-                'stock' => 23,
+                'stockSizes' => ['US 6' => 2,'US 7' => 1,'US 8' => 0, 'US 10' => 1,],
                 'imgPath' => 'Products/Footwear/YONEX POWER CUSHION ECLIPSION Z WIDE.png',
                 'price' => 519.90,
             ],
@@ -372,8 +374,9 @@ class ProductSeeder extends Seeder
                 'sportCategory' => 'Multi-Sport',
                 'productCategory' => 'Footwear',
                 'productBrand' => 'YONEX',
+                'has_sizes' => true,
                 'description' => "A lightweight and high-performance sport shoe in Mint, made with Synthetic Fiber and Synthetic Resin for durability. Features a Rubber Sole for excellent traction. Equipped with Power Cushion for shock absorption, Double Raschel Mesh for breathability, Durable Skin Light for a lightweight feel, Power Graphite Sheet for stability, msLITE X for enhanced agility, and Feather Bounce Foam for superior responsiveness on the court.",
-                'stock' => 32,
+                'stockSizes' => ['US 6' => 0,'US 7' => 1,'US 8' => 10, 'US 10' => 0,],
                 'imgPath' => 'Products/Footwear/YONEX POWER CUSHION COMFORT Z.png',
                 'price' => 569.00,
             ],
@@ -382,8 +385,9 @@ class ProductSeeder extends Seeder
                 'sportCategory' => 'Multi-Sport',
                 'productCategory' => 'Footwear',
                 'productBrand' => 'LI- NING',
+                'has_sizes' => true,
                 'description' => "A stylish and high-performance sport shoe in White and Yellow, made with Synthetic Fiber and Synthetic Resin for durability. Features a Rubber Sole for excellent grip and stability. Designed for modern players, the Li-Ning SAGA II LITE enhances both style and performance, providing a superior on-court experience.",
-                'stock' => 6,
+                'stockSizes' => ['US 6' => 20,'US 7' => 2,'US 8' => 0, 'US 10' => 7,],
                 'imgPath' => 'Products/Footwear/LI- NING SAGA II LITE- AYTT003-3.png',
                 'price' => 499.00,
             ],
@@ -392,6 +396,7 @@ class ProductSeeder extends Seeder
                 'sportCategory' => 'Multi-Sport',
                 'productCategory' => 'Footwear',
                 'productBrand' => 'LI- NING',
+                'has_sizes' => true,
                 'description' => "A breathable and comfortable sport shoe in White Congo Red, made with Synthetic Fiber and Synthetic Resin for durability. Features a Rubber Sole for excellent traction. Designed with multiple ventilation holes on the upper for high breathability, ensuring cool and dry feet during intense gameplay.",
                 'stock' => 12,
                 'imgPath' => 'Products/Footwear/LI- NING THUNDER CLOUD- AYAS028-4.png',
@@ -402,8 +407,9 @@ class ProductSeeder extends Seeder
                 'sportCategory' => 'Multi-Sport',
                 'productCategory' => 'Footwear',
                 'productBrand' => 'VICTOR',
+                'has_sizes' => true,
                 'description' => "A durable and high-performance sport shoe in White, made with Microfiber PU Leather, V-Tough, and Double Mesh for enhanced durability and breathability. Features VSR Rubber for superior grip and traction. Equipped with Light Shock, Light Resilient EVA, EnergyMax 3.0, TPU, and Carbon Power for excellent cushioning, stability, and energy return. Available in sizes 255mm to 280mm.",
-                'stock' => 21,
+                'stockSizes' => ['US 6' => 3,'US 7' => 1,'US 8' => 0, 'US 10' => 7,],
                 'imgPath' => 'Products/Footwear/VICTOR P9200 HANG- C.png',
                 'price' => 619.00,
             ],
@@ -412,6 +418,7 @@ class ProductSeeder extends Seeder
                 'sportCategory' => 'Multi-Sport',
                 'productCategory' => 'Footwear',
                 'productBrand' => 'VICTOR',
+                'has_sizes' => true,
                 'description' => "A lightweight and durable sport shoe in White, made with PU Leather and Double Mesh for breathability and comfort. Features a Rubber Sole for excellent grip. Equipped with EVA, EnergyMax 3.0, and TPU for superior cushioning, stability, and energy return. Available in sizes 220mm to 300mm.",
                 'stock' => 8,
                 'imgPath' => 'Products/Footwear/VICTOR x CRAYON SHINCHAN Badminton Shoes A39CS.png',
@@ -422,8 +429,9 @@ class ProductSeeder extends Seeder
                 'sportCategory' => 'Basketball',
                 'productCategory' => 'Footwear',
                 'productBrand' => 'LI- NING',
+                'has_sizes' => true,
                 'description' => "The LI-NING WAY OF WADE 10 LOW PIXEL PROFESSIONAL BASKETBALL SHOES – STANDARD WHITE (ABAS083-12) deliver elite performance with a futuristic design. Engineered for speed and agility, they feature a lightweight, breathable upper for maximum comfort and support. The full-length BOOM midsole provides explosive energy return, while the carbon fiber plate enhances stability and responsiveness on the court. The sleek white pixel-inspired design adds a modern touch, making them perfect for both performance and style. Elevate your game with the Way of Wade 10 Low pixel and dominate the competition.",
-                'stock' => 38,
+                'stockSizes' => ['US 6' => 0,'US 7' => 2,'US 8' => 10, 'US 10' => 7,],
                 'imgPath' => 'Products/Footwear/LI-NING WAY OF WADE PROFESSIONAL - ABAS083-12.png',
                 'price' => 1009.00,
             ],
@@ -432,8 +440,9 @@ class ProductSeeder extends Seeder
                 'sportCategory' => 'Basketball',
                 'productCategory' => 'Footwear',
                 'productBrand' => 'LI- NING',
+                'has_sizes' => true,
                 'description' => "The LI-NING MEN'S YUSHUAI 18 BASKETBALL SHOES – STANDARD WHITE/BLACK (ABAU009-3) are designed for next-level performance on the court. Featuring LI-NING BOOM cushioning technology, they provide explosive energy return and superior comfort. The PROBAR LOC stabilizer enhances foot support, while the high-quality upper ensures durability and breathability. With a sleek white and black design, these shoes deliver both style and functionality. Whether you're making quick cuts or driving to the hoop, the YUSHUAI 18 offers the stability, grip, and responsiveness needed to elevate your game.",
-                'stock' => 38,
+                'stockSizes' => ['US 6' => 10,'US 7' => 12,'US 8' => 10, 'US 10' => 7,],
                 'imgPath' => 'Products/Footwear/LI-NING YUSHUAI 18 BASKETBALL SHOES - ABAU009-3.png',
                 'price' => 1009.00,
             ],
@@ -443,8 +452,9 @@ class ProductSeeder extends Seeder
                 'sportCategory' => 'Multi-Sport',
                 'productCategory' => 'Apparel',
                 'productBrand' => 'YONEX',
+                'has_sizes' => true,
                 'description' => "A lightweight and durable sport outfit in Red, made from 100% Polyester for breathability and comfort during gameplay.",
-                'stock' => 32,
+                'stockSizes' => ['S' => 1,'M' => 1,'L' => 0, 'XL' => 7,],
                 'imgPath' => 'Products/Apparel/YONEX MEN’S T-SHIRT 16634EX CLEAR RED.png',
                 'price' => 132.90,
             ],
@@ -453,8 +463,9 @@ class ProductSeeder extends Seeder
                 'sportCategory' => 'Multi-Sport',
                 'productCategory' => 'Apparel',
                 'productBrand' => 'YONEX',
+                'has_sizes' => true,
                 'description' => "A lightweight and breathable sport outfit in White, made from 100% Polyester for comfort and durability during gameplay.",
-                'stock' => 22,
+                'stockSizes' => ['S' => 9,'M' => 2,'L' => 10, 'XL' => 7,],
                 'imgPath' => 'Products/Apparel/YONEX MALAYSIA MASTER 2024 T-SHIRT 2842.png',
                 'price' => 64.90,
             ],
@@ -463,8 +474,9 @@ class ProductSeeder extends Seeder
                 'sportCategory' => 'Multi-Sport',
                 'productCategory' => 'Apparel',
                 'productBrand' => 'YONEX',
+                'has_sizes' => true,
                 'description' => "A flexible and breathable sport outfit in Blue, made from 88% Polyester and 12% Polyurethane, offering durability, comfort, and enhanced mobility during gameplay",
-                'stock' => 30,
+                'stockSizes' => ['S' => 10,'M' => 12,'L' => 8, 'XL' => 0,],
                 'imgPath' => 'Products/Apparel/YONEX MEN’S SLEEVELESS TOP 10497EX.png',
                 'price' => 229.00,
             ],
@@ -474,7 +486,7 @@ class ProductSeeder extends Seeder
                 'productCategory' => 'Apparel',
                 'productBrand' => 'LI- NING',
                 'description' => "A lightweight and breathable sport outfit in Yellow, made from 100% Polyester for comfort and durability during gameplay.",
-                'stock' => 5,
+                'stockSizes' => ['S' => 5,'M' => 12,'L' => 8, 'XL' => 7,],
                 'imgPath' => 'Products/Apparel/LI-NING MEN’S COMPETITION- AAYT073-5.png',
                 'price' => 299.00,
             ],
@@ -483,8 +495,9 @@ class ProductSeeder extends Seeder
                 'sportCategory' => 'Multi-Sport',
                 'productCategory' => 'Apparel',
                 'productBrand' => 'VICTOR',
+                'has_sizes' => true,
                 'description' => "A lightweight and breathable sport outfit in Green, made from 100% Polyester for comfort and durability during gameplay.",
-                'stock' => 13,
+                'stockSizes' => ['S' => 32,'M' => 2,'L' => 5, 'XL' => 7,],
                 'imgPath' => 'Products/Apparel/VICTOR T- SHIRT T-40008.png',
                 'price' => 93.00,
             ],
@@ -493,8 +506,9 @@ class ProductSeeder extends Seeder
                 'sportCategory' => 'Multi-Sport',
                 'productCategory' => 'Apparel',
                 'productBrand' => 'VICTOR',
+                'has_sizes' => true,
                 'description' => "A lightweight and breathable sport outfit in White, made from 100% Polyester for comfort and durability during gameplay.",
-                'stock' => 25,
+                'stockSizes' => ['S' => 10,'M' => 12,'L' => 10, 'XL' => 7,],
                 'imgPath' => 'Products/Apparel/VICTOR T-SHIRT T-40012.png',
                 'price' => 93.00,
             ],
@@ -694,20 +708,35 @@ class ProductSeeder extends Seeder
         ];
 
         foreach ($products as $data) {
+
+            $hasSizes = $data['has_sizes'] ?? false;
+        
             $product = Product::updateOrCreate([
                 'productName' => $data['productName'],
                 'sportCategory' => $data['sportCategory'],
                 'productCategory' => $data['productCategory'],
                 'productBrand' => $data['productBrand'],
+                'has_sizes' => $hasSizes
             ]);
-
+        
             ProductDetail::updateOrCreate([
                 'product_id' => $product->id,
                 'description' => $data['description'],
-                'stock' => $data['stock'],
+                'stock' => $hasSizes ? null : ($data['stock'] ?? null),
                 'imgPath' => $data['imgPath'],
                 'price' => $data['price'],
             ]);
+
+            if ($hasSizes && isset($data['stockSizes']) && is_array($data['stockSizes'])) {
+                foreach ($data['stockSizes'] as $size => $stock) {
+                    ProductStock::create([
+                        'product_id' => $product->id,
+                        'size' => $size,
+                        'stock' => $stock,
+                    ]);
+                }
+            }
         }
+        
     }
 }

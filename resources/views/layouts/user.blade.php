@@ -67,7 +67,7 @@
         <div class="col-md-4 mb-3">
           <h4 class="text-white">Resources</h4>
           <a href="{{ route('user.store') }}" class="d-block text-white text-decoration-none">Find A Store</a>
-          <a href="{{ route('user.store') }}" class="d-block text-white text-decoration-none">Become A Member</a>
+          <a href="{{ route('register') }}" class="d-block text-white text-decoration-none">Become A Member</a>
         </div>
         <div class="col-md-4 mb-3">
           <h4 class="text-white">Help</h4>

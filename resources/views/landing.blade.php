@@ -47,44 +47,48 @@
         </div>
     </div>
 
-    <!-- Popular Sports Brands -->
-    <div class="container my-5">
+<!-- Popular Sports Brands -->
+<div class="container my-5">
     <h3 class="text-center mb-4">Popular Sports Brands</h3>
     <div class="d-flex justify-content-center align-items-center flex-wrap gap-4">
-        <a href="{{ url('/products?brand=YONEX') }}">
-        <img src="{{ asset('images/Brand_Logo/YONEX.png') }}" class="brand-logo">
+        <a href="{{ url('/user/product?brand=YONEX') }}">
+            <img src="{{ asset('images/Brand_Logo/YONEX.png') }}" class="brand-logo">
         </a>
-        <a href="{{ url('/products?brand=LI- NING') }}">
+        <a href="{{ url('/user/product?brand=LI- NING') }}">
             <img src="{{ asset('images/Brand_Logo/LI- NING.png') }}" class="brand-logo">
         </a>
-        <a href="{{ url('/products?brand=VICTOR') }}">
+        <a href="{{ url('/user/product?brand=VICTOR') }}">
             <img src="{{ asset('images/Brand_Logo/VICTOR.png') }}" class="brand-logo">
         </a>
-        <a href="{{ url('/products?brand=WILSON') }}">
+        <a href="{{ url('/user/product?brand=WILSON') }}">
             <img src="{{ asset('images/Brand_Logo/WILSON.png') }}" class="brand-logo">
         </a>
     </div>
+</div>
 
-    <!-- Shop by Sports -->
-    <div class="container my-5">
+
+   <!-- Shop by Sports -->
+<div class="container my-5">
     <h3 class="text-center mb-4">Shop by Sports</h3>
     <div class="d-flex justify-content-center align-items-center flex-wrap gap-4">
-        <a href="{{ url('/products?brand=YONEX') }}">
-        <img src="{{ asset('images/Sports/Badminton.png') }}" class="sport-logo">
+        <a href="{{ url('/user/product?sport=Badminton') }}">
+            <img src="{{ asset('images/Sports/Badminton.png') }}" class="sport-logo">
         </a>
-        <a href="{{ url('/products?brand=LI- NING') }}">
+        <a href="{{ url('/user/product?sport=Basketball') }}">
             <img src="{{ asset('images/Sports/Basketball.png') }}" class="sport-logo">
         </a>
-        <a href="{{ url('/products?brand=VICTOR') }}">
+        <a href="{{ url('/user/product?sport=Golf') }}">
             <img src="{{ asset('images/Sports/Golf.png') }}" class="sport-logo">
         </a>
-        <a href="{{ url('/products?brand=WILSON') }}">
+        <a href="{{ url('/user/product?sport=Tennis') }}">
             <img src="{{ asset('images/Sports/Tennis.png') }}" class="sport-logo">
         </a>
-        <a href="{{ url('/products?brand=WILSON') }}">
+        <a href="{{ url('/user/product?sport=Pickleball') }}">
             <img src="{{ asset('images/Sports/Pickleball.png') }}" class="sport-logo">
         </a>
     </div>
+</div>
+
 
     <!-- Trending Now -->
     <div class="container my-5">
