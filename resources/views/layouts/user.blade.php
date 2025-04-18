@@ -28,6 +28,9 @@
                 <a href="{{ route('user.cart') }}" class="fs-5 text-white text-decoration-none d-flex align-items-center gap-1">
                     <i class="bi bi-cart fs-4"></i> 
                 </a>
+                <a href="{{ route('user.address') }}" class="fs-5 text-white text-decoration-none d-flex align-items-center gap-1">
+                    <i class="bi bi-journal-richtext fs-4"></i> 
+                </a>
                 <a href="{{ route('user.profile') }}" class="fs-5 text-white text-decoration-none d-flex align-items-center gap-1">
                     <i class="bi bi-person-lines-fill fs-4"></i>
                 </a>
@@ -61,7 +64,7 @@
     </div>
 
     {{-- Footer --}}
-  <footer class="footer bg-black border-top border-white py-4">
+  <footer class="footer bg-dark text-white border-top border-white py-4">
     <div class="container">
       <div class="row">
         <div class="col-md-4 mb-3">

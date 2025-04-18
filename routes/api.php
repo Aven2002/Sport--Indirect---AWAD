@@ -41,6 +41,8 @@ Route::get('/product/brand',[ProductController::class,'getProductBrand']);
 Route::get('/product/category',[ProductController::class,'getProductCategory']);
 Route::get('/product/sport/category',[ProductController::class,'getSportCategory']);
 Route::get('/product/search-products', [ProductController::class, 'search']);
+Route::get('/product/trending',[ProductController::class,'getTrendingProducts']);
+Route::get('/product/newArrivals',[ProductController::class,'getNewArrivals']);
 Route::resource('product',ProductController::class);
 
 //User

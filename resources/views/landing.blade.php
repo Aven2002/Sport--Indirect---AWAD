@@ -94,25 +94,47 @@
     <div class="container my-5">
         <h3 class="text-left mb-4">Trending Now</h3>
 
-        <div id="productCarousel" class="carousel slide" data-bs-ride="carousel">
-            <div class="carousel-inner" id="carousel-items">
+        <div id="trendingProductCarousel" class="carousel slide" data-bs-ride="carousel" data-bs-interval="3000">
+            <div class="carousel-inner" id="carousel-items-trending">
                 <!-- Products will be dynamically added here -->
             </div>
             
+    
             <!-- Left and Right Controls -->
-            <button class="carousel-control-prev" type="button" data-bs-target="#productCarousel" data-bs-slide="prev">
-                <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+            <button class="carousel-control-prev" type="button" data-bs-target="#trendingProductCarousel" data-bs-slide="prev">
+                <!-- Bootstrap icon for left arrow -->
+                <i class="bi bi-arrow-left-circle-fill" style="font-size: 2rem; color: #000;"></i>
+                <span class="visually-hidden">Previous</span>
             </button>
-            <button class="carousel-control-next" type="button" data-bs-target="#productCarousel" data-bs-slide="next">
-                <span class="carousel-control-next-icon" aria-hidden="true"></span>
+            <button class="carousel-control-next" type="button" data-bs-target="#trendingProductCarousel" data-bs-slide="next">
+                <!-- Bootstrap icon for right arrow -->
+                <i class="bi bi-arrow-right-circle-fill" style="font-size: 2rem; color: #000;"></i>
+                <span class="visually-hidden">Next</span>
             </button>
         </div>
     </div>
 
-    <!-- New Arrivals -->
-    <div class="container my-5">
-    <h3 class="text-center mb-4">New Arrivals</h3>
-    <div class="d-flex justify-content-center align-items-center flex-wrap gap-4">
+        <!-- New Arrivals -->
+        <div class="container my-5">
+        <h3 class="text-left mb-4">New Arrivals</h3>
+
+        <div id="newArrivalsCarousel" class="carousel slide" data-bs-ride="carousel" data-bs-interval="3000">
+            <div class="carousel-inner" id="carousel-items-new-arrivals">
+                <!-- Products will be dynamically added here -->
+            </div>
+            
+    
+            <!-- Left and Right Controls -->
+            <button class="carousel-control-prev" type="button" data-bs-target="#newArrivalsCarousel" data-bs-slide="prev">
+            <i class="bi bi-arrow-left-circle-fill" style="font-size: 2rem; color: #000;"></i>
+            <span class="visually-hidden">Previous</span>
+        </button>
+        <button class="carousel-control-next" type="button" data-bs-target="#newArrivalsCarousel" data-bs-slide="next">
+            <i class="bi bi-arrow-right-circle-fill" style="font-size: 2rem; color: #000;"></i>
+            <span class="visually-hidden">Next</span>
+        </button>
+        </div>
+    </div>
       
     </div>
 </div>

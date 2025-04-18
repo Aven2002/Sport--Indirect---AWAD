@@ -345,5 +345,47 @@ class ProductController extends Controller
         return response()->json($products);
     }
 
-        
+    /**
+     * Retrieve trending now products
+     */
+    public function getTrendingProducts()
+    {
+        try {
+            $products = Product::with('productDetail')->inRandomOrder()->limit(12)->get();
+
+            return response()->json([
+                'message' => 'Trending products retrieved successfully',
+                'products' => $products
+            ], 200);
+        } catch (\Exception $e) {
+            return response()->json([
+                'message' => 'Something went wrong',
+                'error' => $e->getMessage()
+            ], 500);
+        }
+    }
+
+    /**
+     * Retrieve latest 12 trending products based on created_at
+     */
+    public function getNewArrivals()
+    {
+        try {
+            $products = Product::with('productDetail')
+                ->orderBy('created_at', 'desc')
+                ->limit(12)
+                ->get();
+
+            return response()->json([
+                'message' => 'Trending products retrieved successfully',
+                'products' => $products
+            ], 200);
+        } catch (\Exception $e) {
+            return response()->json([
+                'message' => 'Something went wrong',
+                'error' => $e->getMessage()
+            ], 500);
+        }
+    }
+
 }
