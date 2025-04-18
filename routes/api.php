@@ -34,6 +34,7 @@ Route::resource('feedback',FeedbackController::class);
 Route::resource('store',StoreController::class);
 
 //Order
+Route::get('/order/user/{id}',[OrderController::class,'getUserOrder']);
 Route::resource('order',OrderController::class);
 
 //Product

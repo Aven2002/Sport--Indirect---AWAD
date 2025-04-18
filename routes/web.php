@@ -35,6 +35,7 @@ Route::view('/user/product/detail/{id}','user.productDetail')->name('user.produc
 Route::view('/user/contactUs','user.contactUs')->name('user.contactUs');
 Route::view('/user/aboutUs','user.aboutUs')->name('user.aboutUs');
 Route::view('/user/help','user.help')->name('user.help');
+Route::view('/user/order','user.order')->name('user.order');
 
 
 //General 

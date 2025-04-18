@@ -40,6 +40,34 @@ class OrderController extends Controller
     }
 
     /**
+     * Retrieve record own by specific user
+     */
+    public function getUserOrder($id)
+    {
+        try {
+            $orders = Order::with('orderDetail')->where('user_id', $id)->get();
+    
+            if ($orders->isEmpty()) {
+                return response()->json([
+                    'message' => 'You have not placed any orders yet.',
+                    'order' => [],
+                ], 200);
+            }
+    
+            return response()->json([
+                'message' => 'Orders retrieved successfully',
+                'order' => $orders
+            ], 200);
+    
+        } catch (\Exception $e) {
+            return response()->json([
+                'message' => 'Something went wrong',
+                'error' => $e->getMessage()
+            ], 500);
+        }
+    }    
+
+    /**
      * Retrieve specific order record
      */
     public function show($id)

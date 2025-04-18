@@ -98,7 +98,6 @@
             <div class="carousel-inner" id="carousel-items-trending">
                 <!-- Products will be dynamically added here -->
             </div>
-            
     
             <!-- Left and Right Controls -->
             <button class="carousel-control-prev" type="button" data-bs-target="#trendingProductCarousel" data-bs-slide="prev">
