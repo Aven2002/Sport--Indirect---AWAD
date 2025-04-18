@@ -2,6 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
+    <meta name="csrf-token" content="{{ csrf_token() }}">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>@yield('title', 'User Page')</title>
      <!-- Bootstrap CDN -->
@@ -48,9 +49,9 @@
         </button>
         <div class="collapse navbar-collapse" id="navbarNav">
             <ul class="navbar-nav">
-                <li class="nav-item"><a class="nav-link" href="{{ url('/') }}">Home</a></li>
+                <li class="nav-item"><a class="nav-link" href="{{ route('landing') }}">Home</a></li>
                 <li class="nav-item"><a class="nav-link" href="{{ route('user.product') }}">Sports</a></li>
-                <li class="nav-item"><a class="nav-link" href="{{ url('/contactUs') }}">Brands</a></li>
+                <li class="nav-item"><a class="nav-link" href="{{ route('user.contactUs') }}">Brands</a></li>
                 <li class="nav-item"><a class="nav-link" href="{{ route('user.aboutUs') }}">About</a></li>
             </ul>
         </div>

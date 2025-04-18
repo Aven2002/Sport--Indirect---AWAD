@@ -46,4 +46,5 @@ Route::get('/product/newArrivals',[ProductController::class,'getNewArrivals']);
 Route::resource('product',ProductController::class);
 
 //User
+Route::put('/user/update/profile/img',[UserController::class,'updateImage'])->name('profile.updateImage');
 Route::resource('user',UserController::class);

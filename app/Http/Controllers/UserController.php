@@ -143,4 +143,31 @@ class UserController extends Controller
             ],500);
         }
     }
+
+    /**
+     * Update profile img
+     */
+   public function updateImage(Request $request)
+   {
+       // Validate the selected image and user_id
+       $request->validate([
+           'selected_image' => 'required|string',
+           'user_id' => 'required|integer|exists:users,id', // Ensure user_id is valid
+       ]);
+   
+       // Retrieve the user by user_id
+       $user = User::find($request->user_id); // Find the user by ID
+   
+       if (!$user) {
+           return response()->json(['error' => 'User not found'], 404);
+       }
+   
+       // Update the user's profile image path
+       $user->imgPath = 'images/Profile_Img/' . $request->selected_image;
+       $user->save();
+   
+       return response()->json(['status' => 'success', 'message' => 'Profile image updated']);
+   }
+     
+
 }

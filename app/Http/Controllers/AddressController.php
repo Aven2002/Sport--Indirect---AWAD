@@ -72,7 +72,9 @@ class AddressController extends Controller
     public function getUserAddress($id)
     {
         try{
-            $addresses = Address::where('user_id',$id)->get();
+            $addresses = Address::where('user_id', $id)
+                            ->orderByDesc('isDefault')
+                            ->get();
 
             if($addresses->isEmpty())
             {

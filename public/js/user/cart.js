@@ -43,19 +43,36 @@ document.addEventListener("DOMContentLoaded", function () {
 
                 const productPromises = cartDetails.map(async (item) => {
                     const productRes = await axios.get(`/api/product/${item.product_id}`);
+                    const product = productRes.data.product;
+                
+                    let stock = 0;
+
+                    if (product.has_sizes) {
+                        // Get stock based on size for size-based products
+                        const matchedStock = product.product_stocks.find(
+                            stock => stock.size === item.size
+                        );
+                        stock = matchedStock ? matchedStock.stock : 0;
+                    } else {
+                        // Use total stock from product_detail for size-less products
+                        stock = product.product_detail.stock ?? 0;
+                    }
+                
                     return {
                         id: item.id,
                         product_id: item.product_id,
                         cart_id: item.cart_id,
                         size: item.size,
                         quantity: item.quantity,
-                        price: parseFloat(productRes.data.product.product_detail.price),
-                        name: productRes.data.product.productName,
-                        category: productRes.data.product.productCategory,
-                        image: getSafeImagePath(productRes.data.product.product_detail.imgPath),
-                        selected: false // default not selected
+                        stock: stock,
+                        price: parseFloat(product.product_detail.price),
+                        name: product.productName,
+                        category: product.productCategory,
+                        image: getSafeImagePath(product.product_detail.imgPath),
+                        selected: false
                     };
                 });
+                
 
                 cartItems = await Promise.all(productPromises);
                 renderCart();
@@ -159,25 +176,34 @@ document.addEventListener("DOMContentLoaded", function () {
             const index = item.getAttribute("data-index");
             const minusBtn = item.querySelector(".minus-btn");
             const plusBtn = item.querySelector(".plus-btn");
+            const size = cartItems[index].size;  
+            const stock = cartItems[index].stock;  
 
+            // Prevent the quantity from going below 1
             minusBtn.addEventListener("click", () => {
                 if (cartItems[index].quantity > 1) {
                     cartItems[index].quantity--;
+                    renderCart();
+                    updateSummary();
                 } else {
-                    cartItems.splice(index, 1);
-                    item.remove();
+                    alert("Quantity cannot be less than 1.");
                 }
-                renderCart();
-                updateSummary();
             });
-
+            
+    
+            // Prevent the quantity from exceeding the stock available for the selected size
             plusBtn.addEventListener("click", () => {
-                cartItems[index].quantity++;
+                if (cartItems[index].quantity < stock) {
+                    cartItems[index].quantity++;
+                } else {
+                    alert(`Cannot exceed the available stock for (${stock} left).`);
+                }
                 renderCart();
                 updateSummary();
             });
         });
     }
+    
 
     function setupCheckoutButton() {
         checkoutBtn.addEventListener("click", () => {
