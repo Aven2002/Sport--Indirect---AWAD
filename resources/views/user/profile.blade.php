@@ -1,8 +1,10 @@
-@extends('layouts.guest')
+@extends('layouts.user')
 
 @section('title', 'User Profile')
 
 @section('content')
+
+@include('components.toast')
 <div class="container my-5">
     <div class="card shadow-lg p-4 mx-auto" style="max-width: 800px;">
         <h2 class="text-center mb-4">User Profile</h2>

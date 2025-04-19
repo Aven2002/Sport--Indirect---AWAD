@@ -13,6 +13,8 @@ use Illuminate\Support\Facades\Hash;
 use Illuminate\Validation\Rules;
 use Illuminate\Validation\Rules\Password;
 use Illuminate\View\View;
+use Illuminate\Support\Facades\Http; 
+use App\Models\Cart; 
 
 class RegisteredUserController extends Controller
 {
@@ -47,6 +49,8 @@ class RegisteredUserController extends Controller
         $user = User::create($validatedData);
 
         event(new Registered($user));
+
+        Cart::firstOrCreate(['user_id' => $user->id]);
 
         Auth::login($user);
 

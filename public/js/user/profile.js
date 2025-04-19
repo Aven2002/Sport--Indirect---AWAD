@@ -36,11 +36,11 @@ function selectProfileImage(imageName) {
     })
     .then(response => {
         document.getElementById('previewPhoto').src = `${BASE_URL}/images/Profile_Img/${imageName}`;
-        alert('Profile image updated successfully!');
+        showToast("Profile image updated successfully.", "success");
     })
     .catch(error => {
         console.error('Error updating profile image:', error.response.data);
-        alert('Failed to update profile image.');
+        showToast("Failed to update profile image.", "failure");
     });
 }
 
