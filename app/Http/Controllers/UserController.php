@@ -97,52 +97,50 @@ class UserController extends Controller
     }
 
     /**
-     * Update specific user record
+     * Update specific user status
      */
-    public function update(Request $request, $id)
+    public function updateStatus(Request $request, $id)
     {
-        try{
-
+        try {
+            // Find the user by ID
             $user = User::find($id);
 
-            if($user)
-            {
+            // Handle if user not found
+            if (!$user) {
                 return response()->json([
-                    'message'=>'User record not found'
-                ],200);
+                    'message' => 'User record not found'
+                ], 404);
             }
 
+            // Validate the status field
             $validatedData = $request->validate([
-                'email'=>'required|string',
-                'username'=>'required|string',
-                'password'=>'required|string',
-                'dob'=>'required|date',
-                'profileImg'=>'required|string',
-                'security_answers'=>'required|text',
+                'status' => 'required|in:active,frozen'
             ]);
 
-            $user->update($validatedData);
+            // Update the user's status
+            $user->update([
+                'status' => $validatedData['status']
+            ]);
 
             return response()->json([
-                'message'=>'User record updated successfully',
-                'user'=>$user
-            ],200);
+                'message' => 'User status updated successfully',
+                'user' => $user
+            ], 200);
 
-        }catch(ValidationException $e)
-        {
+        } catch (ValidationException $e) {
             return response()->json([
-                'message'=>"Validation error",
-                'errors'=>$e->errors()
-            ],422);
+                'message' => "Validation error",
+                'errors' => $e->errors()
+            ], 422);
 
-        }catch(\Exception $e)
-        {
+        } catch (\Exception $e) {
             return response()->json([
-                'message'=>'Something went wrong',
-                'error'=>$e->getMessage()
-            ],500);
+                'message' => 'Something went wrong',
+                'error' => $e->getMessage()
+            ], 500);
         }
     }
+
 
     /**
      * Update profile img
@@ -168,6 +166,18 @@ class UserController extends Controller
    
        return response()->json(['status' => 'success', 'message' => 'Profile image updated']);
    }
+
+       /**
+         * Search engine
+         */
+        public function search(Request $request)
+        {
+            $searchTerm = $request->input('search');
+
+            $accounts = User::where('email', 'like', '%' . $searchTerm . '%')->get();
+
+            return response()->json($accounts);
+        }
      
 
 }

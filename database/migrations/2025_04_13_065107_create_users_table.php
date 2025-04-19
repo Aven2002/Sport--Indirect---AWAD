@@ -19,6 +19,7 @@ return new class extends Migration
             $table->string('password');
             $table->date('dob');
             $table->string('imgPath')->default('images/Default/_profile.png');
+            $table->enum('status', ['active', 'frozen'])->default('active');
             $table->timestamp('email_verified_at')->nullable(); // For email verification
             $table->rememberToken(); // For "remember me" functionality
             $table->timestamps();

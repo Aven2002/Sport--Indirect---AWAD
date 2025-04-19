@@ -1,13 +1,11 @@
 let stores = [];
-let currentPage = 1;
-const rowsPerPage =5;
 
 document.addEventListener("DOMContentLoaded", function (){
     loadStores();
 })
 
 function loadStores(){
-    axios.get("/api/store")
+    axios.get("/api/stores")
         .then(response=>{
             stores = response.data.stores ??[];
             displayTable();
@@ -19,19 +17,16 @@ function loadStores(){
 }
 
 function displayTable(){
-    const start = (currentPage -1)*rowsPerPage;
-    const end = start + rowsPerPage;
-    const paginatedStores = stores.slice(start,end);
 
     const tableBody = document.querySelector("#storeTableBody");
     tableBody.innerHTML = "";
 
-    if (paginatedStores.length === 0) {
+    if (stores.length === 0) {
         tableBody.innerHTML = `<tr><td colspan="9" class="text-center text-muted">No Stores available.</td></tr>`;
         return;
     }
 
-    paginatedStores.forEach(store=>{
+    stores.forEach(store=>{
         let row = `
             <tr>
                 <td>${store.id}</td>
@@ -49,35 +44,11 @@ function displayTable(){
         `;
         tableBody.innerHTML += row;
     });
-    updatePagination();
-}
-
-function updatePagination() {
-    if (!stores.length) return;  // Do nothing if there are no stores
-
-    const totalPages = Math.ceil(stores.length / rowsPerPage);
-    const pagination = document.querySelector("#pagination");
-    pagination.innerHTML = "";
-
-    if (totalPages <= 1) return; // Hide pagination if only one page
-
-    for (let i = 1; i <= totalPages; i++) {
-        pagination.innerHTML += `
-            <li class="page-item ${i === currentPage ? "active" : ""}">
-                <a class="page-link" href="#" onclick="changePage(${i})">${i}</a>
-            </li>`;
-    }
-}
-
-
-function changePage(page) {
-    currentPage = page;
-    displayTable();
 }
 
 window.deleteStore = function(id){
     if(confirm("Are you sure want to delete this store record?")){
-        axios.delete(`/api/store/${id}`)
+        axios.delete(`/api/stores/${id}`)
         .then(()=>{
             showToast("Store record deleted successfully.","success");
             loadStores();
@@ -101,7 +72,7 @@ function UpdateStore(storeId){
             document.getElementById("updateStoreName").value = store.storeName;
             document.getElementById("updateAddress").value = store.address;
             document.getElementById("updateOperation").value = store.operation;
-            document.getElementById("updateContact").value = store.phoneNo;
+            document.getElementById("updateContact").value = store.contactNum;
 
             // Store current image path in a hidden variable
             document.getElementById("updateStoreId").setAttribute("data-imgPath", store.imgPath);
@@ -126,7 +97,7 @@ document.getElementById("updateStoreForm").addEventListener("submit",function (e
         storeName: document.getElementById("updateStoreName").value.trim(),
         address: document.getElementById("updateAddress").value.trim(),
         operation: document.getElementById("updateOperation").value.trim(),
-        phoneNo: document.getElementById("updateContact").value.trim(),
+        contactNum: document.getElementById("updateContact").value.trim(),
         imgPath: document.getElementById("updateStoreId").getAttribute("data-imgPath"), //Always use the existing image path
     };
 
@@ -144,29 +115,45 @@ document.getElementById("updateStoreForm").addEventListener("submit",function (e
 });
 
 //Handle form submission --Create
-document.getElementById("createStoreForm").addEventListener("submit", async function (event){
+document.getElementById("createStoreForm").addEventListener("submit", async function (event) {
     event.preventDefault();
 
-    const formData = new FormData();
-    formData.append("storeName", document.getElementById("storeName").value.trim());
-    formData.append("address", document.getElementById("address").value.trim());
-    formData.append("operation", document.getElementById("operation").value.trim());
-    formData.append("phoneNo", document.getElementById("contact").value.trim());
-    
+    // Step 1: Check if image is selected
     const storeImg = document.getElementById("storeImg").files[0];
-    if(!storeImg){
-        alert("Please select a product image.");
-        return;
-    }
-    formData.append("imgPath", storeImg);
+    let imgPath = "images/Default/_product.png"; // Default image path if no image is selected
 
-    try{
-        const response = await axios.post("/api/stores", formData,{
-            headers: { "Content-Type": "multipart/form-data" }
+    if (storeImg) {
+        const imageFormData = new FormData();
+        imageFormData.append("image", storeImg);
+
+        try {
+            const uploadRes = await axios.post("/api/upload-image", imageFormData, {
+                headers: { "Content-Type": "multipart/form-data" }
+            });
+            imgPath = uploadRes.data.imgPath; // Update imgPath if image is uploaded successfully
+        } catch (error) {
+            console.error("Image upload failed:", error);
+            alert("Failed to upload image.");
+            return;
+        }
+    }
+
+    // Step 2: Submit store record with imgPath (either default or uploaded)
+    const storeData = {
+        storeName: document.getElementById("storeName").value.trim(),
+        address: document.getElementById("address").value.trim(),
+        operation: document.getElementById("operation").value.trim(),
+        contactNum: document.getElementById("contact").value.trim(),
+        imgPath: imgPath // Send the imgPath (default or uploaded)
+    };
+
+    try {
+        const response = await axios.post("/api/stores", storeData, {
+            headers: { "Content-Type": "application/json" }
         });
-        showToast("Store record inserted successfully.","success");
+        showToast("Store record inserted successfully.", "success");
         loadStores();
-    }catch (error) {
+    } catch (error) {
         if (error.response && error.response.data) {
             console.error("Validation Errors:", error.response.data);
             alert("Validation Error: " + JSON.stringify(error.response.data.errors));
@@ -175,4 +162,30 @@ document.getElementById("createStoreForm").addEventListener("submit", async func
             alert("Error adding store record.");
         }
     }
-})
+});
+
+
+
+function searchStores() {
+    let searchTerm = document.getElementById("search-input").value;
+
+    if (!searchTerm) {
+        loadStores(); 
+        return;
+    }
+
+    axios.get('/api/store/search-stores', {
+        params: {
+            search: searchTerm
+        }
+    })
+    .then(response => {
+        stores = response.data ?? []
+        displayTable();
+    })
+    .catch(error => {
+        console.error("There was an error fetching the stores:", error);
+        document.querySelector("#storeTableBody").innerHTML = 
+            `<tr><td colspan="9" class="text-center text-danger">Failed to load search results.</td></tr>`;
+    });
+}

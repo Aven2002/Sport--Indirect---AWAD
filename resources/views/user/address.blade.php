@@ -54,6 +54,7 @@
 
 <script>
     const userId = @json(auth()->id());
+    const noAddressImage = "{{ asset('images/Default/_address.png') }}";
 </script>
 <!-- Axios Script -->
 <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>

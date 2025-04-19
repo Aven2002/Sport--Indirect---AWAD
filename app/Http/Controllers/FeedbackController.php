@@ -133,6 +133,41 @@ class FeedbackController extends Controller
     }
 
     /**
+     * Update feedback's status (Read || Unread)
+     */
+    public function updateStatus(Request $request, $id)
+    {
+        try {
+            $feedback = Feedback::find($id);
+
+            if (!$feedback) { 
+                return response()->json([
+                    'message' => 'Feedback not found'
+                ], 404);
+            }
+
+            $request->validate([
+                'status' => 'required|boolean'
+            ]);
+
+            // Update status
+            $feedback->status = $request->status;
+            $feedback->save();
+
+            return response()->json([
+                'message' => 'Feedback status updated successfully',
+                'feedback' => $feedback
+            ], 200);
+
+        } catch (\Exception $e) {
+            return response()->json([
+                'message' => 'Something went wrong',
+                'error' => $e->getMessage()
+            ], 500);
+        }
+    }
+    
+    /**
      * Count the unread feedback
      */
     public function unreadCount()

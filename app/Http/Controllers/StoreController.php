@@ -105,7 +105,7 @@ class StoreController extends Controller
         try{
             $validatedData = $request->validate([
                 'storeName' => 'required|string|max:50',
-                'imgPath' => 'required|string',
+                'imgPath' => 'nullable|string',
                 'address' => 'required|string',
                 'operation' => 'required|string',
                 'contactNum' => 'nullable|string',
@@ -178,5 +178,17 @@ class StoreController extends Controller
                 'error'=>$e->getMessage()
             ],500);
         }
+    }
+
+    /**
+     * Search engine
+    */
+    public function search(Request $request)
+    {
+      $searchTerm = $request->input('search');
+
+        $accounts = Store::where('storeName', 'like', '%' . $searchTerm . '%')->get();
+
+        return response()->json($accounts);
     }
 }

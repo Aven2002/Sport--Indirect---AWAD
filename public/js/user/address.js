@@ -10,12 +10,10 @@ async function fetchAddresses() {
 
         const response = await axios.get(`/api/address/${userId}/user`);
 
-        console.log("API Response:", response);
-
         if (response.data.message === "No address found for this user") {
             addressList.innerHTML = `
                 <div class="text-center">
-                    <img src="{{ asset('images/Default/_address.png') }}" alt="No Address" class="img-fluid" style="max-width: 150px;">
+                     <img src="${noAddressImage}" alt="No Address" class="img-fluid" style="max-width: 150px;">
                     <p class="mt-3 text-muted">No saved addresses found. You can add a new address.</p>
                 </div>
             `;

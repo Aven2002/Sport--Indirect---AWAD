@@ -3,7 +3,7 @@ document.addEventListener("DOMContentLoaded", function () {
 });
 
 function fetchStores() {
-    axios.get('/api/store')
+    axios.get('/api/stores')
         .then(response => {
 
             const stores = response.data.stores || [];  // Fallback to empty array if stores is undefined
@@ -26,7 +26,7 @@ function fetchStores() {
                     const storeCard = `
                         <div class="col-md-4 mb-3 d-flex">
                             <div class="card store-card shadow-sm flex-fill">
-                                <img src="/images/${store.imgPath}" class="card-img-top" alt="${store.storeName}">
+                                <img src="/${store.imgPath}" class="card-img-top" alt="${store.storeName}">
                                 <div class="card-body d-flex flex-column">
                                     <h5 class="card-title">${store.storeName}</h5>
                                     <p class="card-text">${store.address}</p>

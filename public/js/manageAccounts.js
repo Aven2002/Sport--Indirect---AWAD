@@ -1,6 +1,4 @@
 let accounts = [];
-let currentPage = 1;
-const rowsPerPage =5;
 
 document.addEventListener("DOMContentLoaded", function (){
     loadAccounts();
@@ -18,20 +16,16 @@ function loadAccounts(){
         });
 }
 
-function displayTable(){
-    const start = (currentPage -1)*rowsPerPage;
-    const end = start + rowsPerPage;
-    const paginatedAccounts = accounts.slice(start,end);
-
+function displayTable() {
     const tableBody = document.querySelector("#accountTableBody");
     tableBody.innerHTML = "";
 
-    if (paginatedAccounts.length === 0) {
-        tableBody.innerHTML = `<tr><td colspan="9" class="text-center text-muted">No Account available.</td></tr>`;
+    if (accounts.length === 0) {
+        tableBody.innerHTML = `<tr><td colspan="9" class="text-center text-muted">No account available.</td></tr>`;
         return;
     }
 
-    paginatedAccounts.forEach(account=>{
+    accounts.forEach(account => {
         let row = `
             <tr>
                 <td>${account.id}</td>
@@ -41,7 +35,9 @@ function displayTable(){
                 <td>${account.created_at}</td>
                 <td class="text-center">
                     <div class="d-flex justify-content-center align-items-center gap-2">
-                        <button class="btn btn-warning btn-sm" onclick="UpdateAccount(${account.id})">Update</button>
+                        ${account.status === 'frozen' ? 
+                            `<button class="btn btn-success btn-sm" id="active-btn-${account.id}" onclick="activeAccount(${account.id})">Activate</button>` : 
+                            `<button class="btn btn-info btn-sm" id="freeze-btn-${account.id}" onclick="freezeAccount(${account.id})">Freeze</button>`}
                         <button class="btn btn-danger btn-sm" onclick="deleteAccount(${account.id})">Delete</button>
                     </div>
                 </td>
@@ -49,29 +45,6 @@ function displayTable(){
         `;
         tableBody.innerHTML += row;
     });
-    updatePagination();
-}
-
-function updatePagination() {
-    if (!accounts.length) return;  // Do nothing if there are no accounts
-
-    const totalPages = Math.ceil(accounts.length / rowsPerPage);
-    const pagination = document.querySelector("#pagination");
-    pagination.innerHTML = "";
-
-    if (totalPages <= 1) return; // Hide pagination if only one page
-
-    for (let i = 1; i <= totalPages; i++) {
-        pagination.innerHTML += `
-            <li class="page-item ${i === currentPage ? "active" : ""}">
-                <a class="page-link" href="#" onclick="changePage(${i})">${i}</a>
-            </li>`;
-    }
-}
-
-function changePage(page) {
-    currentPage = page;
-    displayTable();
 }
 
 window.deleteAccount = function(id){
@@ -85,57 +58,75 @@ window.deleteAccount = function(id){
     }
 };
 
-function UpdateAccount(id){
-    axios.get(`/api/profile/${id}`)
-        .then(response=>{
-            const user = response.data.profile;
 
-            if(!user){
-                alert("User record not found")
-                return;
-            }
+function searchAccounts() {
+    let searchTerm = document.getElementById("search-input").value;
 
-            //Populate form fields with current user data
-            document.getElementById("updateAccountId").value = user.id;
-            document.getElementById("updateEmail").value = user.email;
-            document.getElementById("updateUsername").value = user.username;
-            document.getElementById("updateDob").value = user.dob;
+    if (!searchTerm) {
+        loadAccounts(); 
+        return;
+    }
 
-            // User current image path in a hidden variable
-            document.getElementById("updateAccountId").setAttribute("data-imgPath", user.imgPath);
-
-            // Show Bootstrap modal
-            let updateModal = new bootstrap.Modal(document.getElementById("updateAccountModal"));
-            updateModal.show();
-        })
-        .catch(error => {
-            console.error("Error fetching user record:",error.response?.data || error.message);
-            alert("Failed to fetch user record");
-        });
-}
-
-//Handle form submisson --Update
-document.getElementById("updateAccountForm").addEventListener("submit",function (event){
-    event.preventDefault();
-
-    const id = document.getElementById("updateAccountId").value;
-
-    const updatedUser = {
-        email: document.getElementById("updateEmail").value.trim(),
-        username: document.getElementById("updateUsername").value.trim(),
-        dob: document.getElementById("updateDob").value.trim(),
-        imgPath: document.getElementById("updateAccountId").getAttribute("data-imgPath"), //Always use the existing image path
-    };
-
-    axios.put(`/api/profile/${id}`, updatedUser, {
-        headers: {
-            "Content-Type": "application/json"
+    axios.get('/api/user/search-accounts', {
+        params: {
+            search: searchTerm
         }
     })
-    .then(response =>{
-        showToast("User record updated successfully.","success");
+    .then(response => {
+        accounts = response.data ?? []
+        displayTable();
+    })
+    .catch(error => {
+        console.error("There was an error fetching the accounts:", error);
+        document.querySelector("#accountTableBody").innerHTML = 
+            `<tr><td colspan="9" class="text-center text-danger">Failed to load search results.</td></tr>`;
+    });
+}
+
+function freezeAccount(userId) {
+    axios.put(`/api/user/${userId}/status`, {
+        status: 'frozen'
+    })
+    .then(response => {
+        showToast("User status updated successfully.","success");
         loadAccounts();
     })
-    .catch(()=>showToast("Error updating user record.","error"));
+    .catch(error => {
+        console.error(error);
+        alert('Failed to freeze account.');
+    });
+}
 
-});
+function activeAccount(userId) {
+    axios.put(`/api/user/${userId}/status`, {
+        status: 'active'
+    })
+    .then(response => {
+        showToast("User status updated successfully.","success");
+        loadAccounts();
+    })
+    .catch(error => {
+        console.error(error);
+        alert('Failed to activate account.');
+    });
+}
+
+function updateButtonStates(userId, newStatus) {
+    console.log(`Updating button states for user ${userId}, new status: ${newStatus}`);
+
+    const freezeBtn = document.getElementById(`freeze-btn-${userId}`);
+    const activeBtn = document.getElementById(`active-btn-${userId}`);
+
+    if (freezeBtn && activeBtn) {
+        if (newStatus === 'frozen') {
+            console.log("Freezing account - disabling freeze button and enabling active button.");
+            freezeBtn.disabled = true;
+            activeBtn.disabled = false;
+        } else {
+            console.log("Activating account - disabling active button and enabling freeze button.");
+            freezeBtn.disabled = false;
+            activeBtn.disabled = true;
+        }
+    }
+}
+

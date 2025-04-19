@@ -75,7 +75,7 @@
         </div>
         <div class="col-md-4 mb-3">
           <h4 class="text-white">Help</h4>
-          <a href="{{ route('user.store') }}" class="d-block text-white text-decoration-none">Order Status</a>
+          <a href="{{ route('user.order') }}" class="d-block text-white text-decoration-none">Order Status</a>
           <a href="{{ route('user.contactUs') }}" class="d-block text-white text-decoration-none">Contact Us</a>
         </div>
         <div class="col-md-4 mb-3">

@@ -10,14 +10,21 @@
 
 <body class="bg-white text-dark">
 
-    {{-- Header --}}
+{{-- Header --}}
     <header class="bg-dark text-white py-3">
         <div class="container d-flex justify-content-between align-items-center flex-wrap px-4">
             
             <!-- Logo -->
             <a href="{{ route('admin.dashboard') }}" class="d-flex align-items-center text-white text-decoration-none">
-                <img src="{{ asset('images/comLogo.png') }}" alt="Sport Indirect Logo" width="250">
+                <img src="{{ asset('images/comLogo.png') }}" alt="Sport Indirect Logo" height="100" width="300">
             </a>
+
+            <!-- Profile Icons -->
+            <div class="d-flex gap-4 align-items-center">
+                <a href="{{ route('user.profile') }}" class="fs-5 text-white text-decoration-none d-flex align-items-center gap-1">
+                    <i class="bi bi-person-lines-fill fs-4"></i>
+                </a>
+            </div>
         </div>
     </header>
 
@@ -30,6 +37,7 @@
     {{-- Footer --}}
     <footer class="bg-dark text-white text-center py-3 mt-auto w-100">
         <p class="mb-0">&copy; {{ date('Y') }} Sport Indirect. All rights reserved.</p>
+        <div class="footer-region">🌐 Malaysia</div>
     </footer>
 
   <!-- Bootstrap JS -->

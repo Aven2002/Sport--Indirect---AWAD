@@ -12,6 +12,7 @@
  <button class="btn btn-success mb-3" data-bs-toggle="modal" data-bs-target="#createStoreModal">
     Add new Store
  </button>
+ <input type="text" id="search-input" class="form-control mb-4" placeholder="Search stores..." onkeyup="searchStores()">
 
  <!-- Store List Table -->
   <table class="table table-bordered mt-4">
@@ -30,12 +31,6 @@
     </tbody>
  </table>    
 
- <!-- Bootstrap Pagination -->
-  <nav>
-    <ul class="pagination justify-content-center" id="pagination">
-        <!-- Pagination buttons will be generate dynamically -->
-    </ul>
-  </nav>
 </div>
 
 <!-- Update Store Modal -->

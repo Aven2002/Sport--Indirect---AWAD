@@ -28,10 +28,12 @@ Route::resource('cartDetail',CartDetailController::class);
 
 //Feedback
 Route::get('/feedback/unread',[FeedbackController::class,'unreadCount']);
+Route::put('/feedback/{id}/status',[FeedbackController::class,'updateStatus'])->name('feedback.updateStatus');
 Route::resource('feedback',FeedbackController::class);
 
 //Store
-Route::resource('store',StoreController::class);
+Route::get('/store/search-stores', [StoreController::class, 'search']);
+Route::resource('stores',StoreController::class);
 
 //Order
 Route::get('/order/user/{id}',[OrderController::class,'getUserOrder']);
@@ -48,4 +50,9 @@ Route::resource('product',ProductController::class);
 
 //User
 Route::put('/user/update/profile/img',[UserController::class,'updateImage'])->name('profile.updateImage');
+Route::put('/user/{id}/status',[UserController::class,'updateStatus'])->name('user.updateStatus');
+Route::get('/user/search-accounts', [UserController::class, 'search']);
 Route::resource('user',UserController::class);
+
+//File
+Route::post('/upload-image', [FileUploadController::class, 'uploadImage']);

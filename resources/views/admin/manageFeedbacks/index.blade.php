@@ -3,6 +3,8 @@
 @section('title', 'Feedback Management - Sport Indirect')
 
 @section('content')
+
+@include('components.toast')
 <div class="container mt-5">
     <h1 class="text-center">Feedback Management</h1>
 

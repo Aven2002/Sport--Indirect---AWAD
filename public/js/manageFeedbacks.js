@@ -81,7 +81,7 @@ document.addEventListener("DOMContentLoaded", function () {
 
                 // Mark as Read if Unread
                 if (!feedback.status) {
-                    axios.put(`/api/feedback/${id}`, { status: 1 })
+                    axios.put(`/api/feedback/${id}/status`, { status: 1 })
                         .then(() => {
                             loadFeedbacks();
                             loadUnreadCount();
@@ -102,7 +102,7 @@ document.addEventListener("DOMContentLoaded", function () {
         if (confirm("Are you sure you want to delete this feedback?")) {
             axios.delete(`/api/feedback/${id}`)
                 .then(() => {
-                    alert("Feedback deleted successfully.");
+                    showToast("Feedback record deleted successfully.", "success");
                     loadFeedbacks();
                     loadUnreadCount();
                 })

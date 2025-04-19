@@ -88,17 +88,19 @@ function renderProducts(products) {
 
             let productCard = `
                 <div class="col-md-4 col-sm-6 mb-4 product-card" data-category="${product.productCategory}">
-                    <div class="card shadow">
-                        <img src="/images/${imgPath}" class="card-img-top" alt="${imgPath}">
-                        <div class="card-body text-center">
-                            <h4 class="card-title">${product.productName}</h4>
-                            <p class="fw-bold">RM ${price}</p>
-                            <div class="badge-container">
-                                <p class="badge bg-warning text-dark">${product.productCategory}</p>
-                                <p class="badge bg-primary text-dark">${product.productBrand}</p>
+                    <a href="/user/product/detail/${product.id}" class="text-decoration-none text-dark">
+                        <div class="card shadow">
+                            <img src="/images/${imgPath}" class="card-img-top" alt="${imgPath}">
+                            <div class="card-body text-center">
+                                <h4 class="card-title">${product.productName}</h4>
+                                <p class="fw-bold">RM ${price}</p>
+                                <div class="badge-container">
+                                    <p class="badge bg-warning text-dark">${product.productCategory}</p>
+                                    <p class="badge bg-primary text-dark">${product.productBrand}</p>
+                                </div>
                             </div>
                         </div>
-                    </div>
+                    </a>
                 </div>`;
             productContainer.innerHTML += productCard;
         });

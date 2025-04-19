@@ -12,6 +12,7 @@
 <button class="btn btn-success mb-3" data-bs-toggle="modal" data-bs-target="#createProductModal">
     Add New Product
 </button>
+<input type="text" id="search-input" class="form-control mb-4" placeholder="Search products..." onkeyup="searchProducts()">
 
     <!-- Product List Table -->
     <table class="table table-bordered mt-4">
@@ -31,14 +32,6 @@
             <!-- Product data will be inserted here -->
         </tbody>
     </table>
-
-    <!-- Bootstrap Pagination -->
-    <nav>
-        <ul class="pagination justify-content-center" id="pagination">
-            <!-- Pagination buttons will be generated dynamically -->
-        </ul>
-    </nav>
-
 </div>
 
 <!-- Product View Modal -->

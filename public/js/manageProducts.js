@@ -1,6 +1,4 @@
 let products = [];  // Store all products
-let currentPage = 1;
-const rowsPerPage = 15;
 
 document.addEventListener("DOMContentLoaded", function () {
     loadProducts();
@@ -49,29 +47,6 @@ function displayTable() {
 
         tableBody.innerHTML += row;
     });
-
-    updatePagination();
-}
-
-
-function updatePagination() {
-    const totalPages = Math.ceil(products.length / rowsPerPage);
-    const pagination = document.querySelector("#pagination");
-    pagination.innerHTML = "";
-
-    if (totalPages <= 1) return; // Hide pagination if only one page
-
-    for (let i = 1; i <= totalPages; i++) {
-        pagination.innerHTML += `
-            <li class="page-item ${i === currentPage ? "active" : ""}">
-                <a class="page-link" href="#" onclick="changePage(${i})">${i}</a>
-            </li>`;
-    }
-}
-
-function changePage(page) {
-    currentPage = page;
-    displayTable();
 }
 
 function viewProduct(productId) {
@@ -246,6 +221,30 @@ document.getElementById("createProductForm").addEventListener("submit", async fu
         showToast("Failed to add product. Check required fields.", "failure");
     }
 });
+
+function searchProducts() {
+    let searchTerm = document.getElementById("search-input").value;
+
+    if (!searchTerm) {
+        loadProducts(); 
+        return;
+    }
+
+    axios.get('/api/product/search-products', {
+        params: {
+            search: searchTerm
+        }
+    })
+    .then(response => {
+        products = response.data ?? []
+        displayTable();
+    })
+    .catch(error => {
+        console.error("There was an error fetching the products:", error);
+        document.querySelector("#productTableBody").innerHTML = 
+            `<tr><td colspan="9" class="text-center text-danger">Failed to load search results.</td></tr>`;
+    });
+}
 
 
 

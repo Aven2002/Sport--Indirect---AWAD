@@ -28,7 +28,6 @@ Route::view('/user/home', 'user.home')->name('user.home');
 Route::view('/user/cart', 'user.cart')->name('user.cart');
 Route::view('/user/address', 'user.address')->name('user.address');
 Route::view('/user/checkout','user.checkout')->name('user.checkout');
-Route::view('/user/profile', 'user.profile')->name('user.profile');
 Route::view('/user/store', 'user.store')->name('user.store');
 Route::view('/user/product','user.product')->name('user.product');
 Route::view('/user/product/detail/{id}','user.productDetail')->name('user.productDetail');
@@ -40,3 +39,4 @@ Route::view('/user/order','user.order')->name('user.order');
 
 //General 
 Route::view('/', 'landing')->name('landing');
+Route::view('/user/profile', 'profile')->name('user.profile');

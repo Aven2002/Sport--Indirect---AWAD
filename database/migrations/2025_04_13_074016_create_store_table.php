@@ -14,7 +14,7 @@ return new class extends Migration
         Schema::create('stores', function (Blueprint $table) {
             $table->id();
             $table->string('storeName');
-            $table->string('imgPath');
+            $table->string('imgPath')->default('images/Default/_product.png');
             $table->string('address');
             $table->string('operation');
             $table->string('contactNum')->nullable();
