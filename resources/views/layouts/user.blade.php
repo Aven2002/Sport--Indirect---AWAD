@@ -56,6 +56,23 @@
                             </ul>
                         </li>
 
+                        {{-- Category Dropdown --}}
+                        <li class="nav-item dropdown">
+                            <a class="nav-link dropdown-toggle text-white fw-medium" href="#" id="brandsDropdown" role="button" data-bs-toggle="dropdown">
+                                Categories
+                            </a>
+                            <ul class="dropdown-menu shadow rounded-3" aria-labelledby="brandsDropdown">
+                                <li><a class="dropdown-item" href="{{ url('/user/product?category=Racquet') }}">Racquet</a></li>
+                                <li><a class="dropdown-item" href="{{ url('/user/product?category=Shuttlecock') }}">Shuttlecock</a></li>
+                                <li><a class="dropdown-item" href="{{ url('/user/product?category=Bags') }}">Bags</a></li>
+                                <li><a class="dropdown-item" href="{{ url('/user/product?category=Footwear') }}">Footwear</a></li>
+                                <li><a class="dropdown-item" href="{{ url('/user/product?category=Apparel') }}">Apparel</a></li>
+                                <li><a class="dropdown-item" href="{{ url('/user/product?category=Accessories') }}">Accessories</a></li>
+                                <li><a class="dropdown-item" href="{{ url('/user/product?category=Balls') }}">Balls</a></li>
+                                <li><a class="dropdown-item" href="{{ url('/user/product?category=Clubs') }}">Clubs</a></li>
+                            </ul>
+                        </li>
+
                         {{-- My Account Dropdown --}}
                         <li class="nav-item dropdown">
                             <a class="nav-link dropdown-toggle text-white fw-medium" href="#" id="accountDropdown" role="button" data-bs-toggle="dropdown">
