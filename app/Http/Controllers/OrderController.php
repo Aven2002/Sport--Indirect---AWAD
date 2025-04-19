@@ -164,6 +164,7 @@ class OrderController extends Controller
                 ]);
 
                 $order->orderDetail()->create([
+                    'order_id'=>$order->id,
                     'product_id' => $item['product_id'],
                     'size' => $item['size'] ?? null,
                     'quantity' => $item['quantity'],

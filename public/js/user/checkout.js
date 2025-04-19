@@ -1,7 +1,7 @@
 document.addEventListener("DOMContentLoaded", async () => {
     // Select the Place Order button
-    const placeOrderButton = document.querySelector('button[type="submit"]');
-    const selectedItems = JSON.parse(localStorage.getItem("selectedCartItems") || "[]");
+    const placeOrderButton = document.getElementById('placeOrder-btn');
+    const items = JSON.parse(localStorage.getItem('checkoutItems') || "[]"); // Data from local storage from other view
     
     placeOrderButton.addEventListener('click', async (e) => {
         e.preventDefault();  // Prevent default form submission
@@ -13,26 +13,14 @@ document.addEventListener("DOMContentLoaded", async () => {
         const paymentMethod = document.getElementById("paymentMethod").value;  
     
         // Validate that we have the necessary data
-        if (!selectedAddressId || !totalPrice || !paymentMethod || !selectedItems.length) {
-            alert("Please make sure all the fields are filled correctly.");
+        if (!selectedAddressId || !totalPrice || !paymentMethod || !items.length) {
+            showToast("Please make sure all the fields are filled correctly", "failure");
             return;
         }
 
-        selectedItems.forEach(item => {
-            item.subPrice = item.price * item.quantity;  // Calculate subPrice for each item
-            console.log("Selected item:", item);
-            console.log("Product ID:", item.product_id);
-            console.log("Price:", item.price);
-            console.log("Size:", item.size);
-            console.log("Quantity:", item.quantity);
-            console.log("SubPrice:", item.subPrice);
+        items.forEach(item => {
+            item.subPrice = item.price * item.quantity; 
         });
-        
-        // Now you can save the updated selectedItems with subPrice back to localStorage
-        localStorage.setItem("selectedCartItems", JSON.stringify(selectedItems));
-        
-        // Verify if the updated selectedItems are correctly stored
-        console.log("Updated selectedItems in localStorage:", selectedItems);
 
         // Create the order payload
         const orderData = {
@@ -40,33 +28,33 @@ document.addEventListener("DOMContentLoaded", async () => {
             address_id: selectedAddressId,
             totalPrice: totalPrice,
             paymentMethod: paymentMethod,
-            items: selectedItems.map(item => ({
-                product_id: item.productId,
+            items: items.map(item => ({
+                product_id: item.product_id,
                 size: item.size,
                 quantity: item.quantity,
-                subPrice: item.subtotal
+                subPrice: item.subPrice
             }))
         };
     
-        // Log the orderData to see what is going to be submitted
-        console.log("Items to submit:", orderData);
-    
         try {
             // Send POST request to create the order
-            const response = await axios.post('http://127.0.0.1:8000/api/order', orderData);
+            const response = await axios.post('/api/order', orderData);
     
             // Handle successful order creation
             if (response.status === 201) {
-                alert("Order placed successfully!");
-                // Optionally, redirect to a success page or clear the cart
-                localStorage.removeItem("selectedCartItems");
-                window.location.href = '/order/success';  // Replace with your actual success page URL
+                showToast("Order placed successfully", "success");
+                localStorage.removeItem("checkoutItems");
+                checkoutSummary.innerHTML = `<p>No items selected for checkout.</p>`;
+                totalAmount.textContent = "0.00";
+                totalPrice.value = "0.00";
+                itemsField.value = "";
+                placeOrderButton.disabled = true;
             } else {
-                alert("Failed to place the order. Please try again.");
+                showToast("Failed to place the order. Please try again", "failure");
             }
         } catch (error) {
             console.error("Error placing order:", error);
-            alert("An error occurred while placing your order. Please try again later.");
+            showToast("An error occurred while placing your order. Please try again later", "failure");
         }
     });
       
@@ -150,7 +138,7 @@ document.addEventListener("DOMContentLoaded", async () => {
     const totalPrice = document.getElementById("totalPrice");
     const itemsField = document.getElementById("items");
 
-    if (!selectedItems.length) {
+    if (!items.length) {
         checkoutSummary.innerHTML = `<p>No items selected for checkout.</p>`;
         return;
     }
@@ -171,7 +159,7 @@ document.addEventListener("DOMContentLoaded", async () => {
                 <tbody
     `;
 
-    selectedItems.forEach((item, index) => {
+    items.forEach((item, index) => {
         const subtotal = item.quantity * item.price;
         total += subtotal;
         summaryHTML += `
@@ -194,5 +182,5 @@ document.addEventListener("DOMContentLoaded", async () => {
     checkoutSummary.innerHTML = summaryHTML;
     totalAmount.textContent = total.toFixed(2);
     totalPrice.value = total.toFixed(2);
-    itemsField.value = JSON.stringify(selectedItems);
+    itemsField.value = JSON.stringify(items);
 });

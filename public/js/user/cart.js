@@ -208,7 +208,7 @@ document.addEventListener("DOMContentLoaded", function () {
     function setupCheckoutButton() {
         checkoutBtn.addEventListener("click", () => {
             const selected = cartItems.filter(item => item.selected);
-            localStorage.setItem("selectedCartItems", JSON.stringify(selected));
+            localStorage.setItem("checkoutItems", JSON.stringify(selected));
 
             console.log("Selected Cart Items:", selected);
 

@@ -1,6 +1,8 @@
 @extends('layouts.user')
 
 @section('content')
+
+@include('components.toast')
 <div class="container mt-4">
     <form id="checkoutForm">
         <div class="row">
@@ -46,7 +48,7 @@
                     </select>
                 </div>
 
-                <button type="submit" class="btn btn-success mb-5 mt-5 w-100">Place Order</button>
+                <button type="submit" id="placeOrder-btn" class="btn btn-success mb-5 mt-5 w-100">Place Order</button>
             </div>
         </div>
 
