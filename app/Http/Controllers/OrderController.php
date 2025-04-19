@@ -68,6 +68,23 @@ class OrderController extends Controller
     }    
 
     /**
+     * Update order status
+     */
+    public function update(Request $request, $id)
+    {
+        $order = Order::find($id);
+
+        if (!$order) {
+            return response()->json(['message' => 'Order not found'], 404);
+        }
+
+        $order->status = $request->input('status');
+        $order->save();
+
+        return response()->json(['message' => 'Order status updated successfully']);
+    }
+
+    /**
      * Retrieve specific order record
      */
     public function show($id)

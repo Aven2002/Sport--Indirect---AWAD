@@ -1,6 +1,4 @@
 let orders = []; 
-let currentPage = 1;
-const rowsPerPage = 15;
 
 document.addEventListener("DOMContentLoaded", function () {
     loadOrders();
@@ -21,21 +19,12 @@ function loadOrders() {
 }
 
 
-
 function displayTable() {
-    const start = (currentPage - 1) * rowsPerPage;
-    const end = start + rowsPerPage;
-    const paginatedOrders = orders.slice(start, end);
 
     const tableBody = document.querySelector("#orderTableBody");
     tableBody.innerHTML = "";
 
-    if (paginatedOrders.length === 0) {
-        tableBody.innerHTML = `<tr><td colspan="9" class="text-center text-muted">No order available.</td></tr>`;
-        return;
-    }
-
-    paginatedOrders.forEach(order => {
+    orders.forEach(order => {
         let row = `
             <tr>
                 <td>${order.id}</td>
@@ -58,51 +47,30 @@ function displayTable() {
 
         tableBody.innerHTML += row;
     });
-
-    updatePagination();
-}
-
-function updatePagination() {
-    const totalPages = Math.ceil(orders.length / rowsPerPage);
-    const pagination = document.querySelector("#pagination");
-    pagination.innerHTML = "";
-
-    if (totalPages <= 1) return; // Hide pagination if only one page
-
-    for (let i = 1; i <= totalPages; i++) {
-        pagination.innerHTML += `
-            <li class="page-item ${i === currentPage ? "active" : ""}">
-                <a class="page-link" href="#" onclick="changePage(${i})">${i}</a>
-            </li>`;
-    }
-}
-
-function changePage(page) {
-    currentPage = page;
-    displayTable();
-}
+  }
 
 async function showOrderReceipt(orderId) {
   try {
 
     const orderResponse = await axios.get(`/api/order/${orderId}`);
-    const order = orderResponse.data;
+    const order = orderResponse.data.order;
+    console.log(order);
    
-    if (!order.order_details || order.order_details.length === 0) {
+    if (!order.order_detail || order.order_detail.length === 0) {
       throw new Error("No products found in order.");
     }
 
     const addressResponse = await axios.get(`/api/address/${order.address_id}`);
     const address = addressResponse.data.address;
    
-    const productPromises = order.order_details.map(orderDetail =>
+    const productPromises = order.order_detail.map(orderDetail =>
       axios.get(`/api/product/${orderDetail.product_id}`)
     );
     const productResponses = await Promise.all(productPromises);
 
     const productList = productResponses.map((productResponse, index) => {
-      const product = productResponse.data.product; // 获取产品数据
-      const orderProduct = order.order_details[index];
+      const product = productResponse.data.product; 
+      const orderProduct = order.order_detail[index];
       return `
         <tr>
           <td>${index + 1}</td>
@@ -155,29 +123,31 @@ window.deleteOrder = function (id) {
   }
 };
 
-function UpdateOrderStatus(id) {
-  axios.get(`/api/order/${id}`)
-      .then(response => {
-          const order = response.data;
+  function UpdateOrderStatus(id) {
+    axios.get(`/api/order/${id}`)
+        .then(response => {
+            const order = response.data.order;
+            console.log(order);
 
-          if (!order) {
-              alert("Order not found");
-              return;
-          }
+            if (!order) {
+                alert("Order not found");
+                return;
+            }
 
-          // Populate form fields with current product data
-          document.getElementById("updateOrderId").value = order.id;
-          document.getElementById("updateOrderStatus").value = order.status;
+            // Populate form fields with current order data
+            document.getElementById("updateOrderId").value = order.id;
+            document.getElementById("updateOrderStatus").value = order.status;
 
-          // Show Bootstrap modal
-          let updateModal = new bootstrap.Modal(document.getElementById("updateOrderModal"));
-          updateModal.show();
-      })
-      .catch(error => {
-          console.error("Error fetching order record:", error.response?.data || error.message);
-          alert("Failed to fetch order details.");
-      });
+            // Show Bootstrap modal
+            let updateModal = new bootstrap.Modal(document.getElementById("updateOrderModal"));
+            updateModal.show();
+        })
+        .catch(error => {
+            console.error("Error fetching order record:", error.response?.data || error.message);
+            alert("Failed to fetch order details.");
+        });
 }
+
 
 // Handle form submission --Update
 document.getElementById("updateOrderForm").addEventListener("submit", function (event) {
@@ -188,6 +158,7 @@ document.getElementById("updateOrderForm").addEventListener("submit", function (
   const updatedOrder = {
       status: document.getElementById("updateOrderStatus").value.trim(),
   };
+  console.log("Order ID being updated:", orderId);
 
   axios.put(`/api/order/${orderId}`, updatedOrder, {
       headers: {
@@ -197,6 +168,8 @@ document.getElementById("updateOrderForm").addEventListener("submit", function (
   .then(response => {
       showToast("Order's status updated successfully.","success");
       loadOrders();
+      let updateModal = bootstrap.Modal.getInstance(document.getElementById("updateOrderModal"));
+      updateModal.hide();
   })
   .catch(error => {
       console.error("Error updating order's status:", error.response?.data || error.message);

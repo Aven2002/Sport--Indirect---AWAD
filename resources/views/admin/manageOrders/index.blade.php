@@ -85,22 +85,19 @@
             <div class="modal-body">
                 <form id="updateOrderForm">
                     <input type="hidden" id="updateOrderId">
-                    
                     <div class="mb-3">
                         <label class="form-label">Order Status</label>
                         <select id="updateOrderStatus" class="form-select" required>
                             <option value="Processing">Processing</option>
-                            <option value="Shipped">Shipped</option>
-                            <option value="Delivered">Delivered</option>
-                            <option value="Cancelled">Cancelled</option>
-                            <option value="Refund">Refund</option>
+                            <option value="Shipping">Shipping</option>
+                            <option value="Completed">Completed</option>
                             <option value="Return & Refund">Return & Refund</option>
                         </select>
                     </div>
 
                     <div class="d-flex justify-content-between">
                         <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
-                        <button type="submit" class="btn btn-primary" data-bs-dismiss="modal">Save Changes</button>
+                        <button type="submit" class="btn btn-primary">Save Changes</button>
                     </div>
                 </form>
             </div>
