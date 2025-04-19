@@ -152,7 +152,7 @@ class OrderController extends Controller
                 'address_id' => $validatedData['address_id'],
                 'totalPrice' => $validatedData['totalPrice'],
                 'paymentMethod' => $validatedData['paymentMethod'],
-                'status' => $validatedData['status'] ?? 'Pending',
+                'status' => $validatedData['status'] ?? 'Processing',
             ]);
 
             // Loop through items and insert into order_details

@@ -1,5 +1,25 @@
-let allOrders = []; // Store all orders after fetch
+let allOrders = []; 
 
+axios.get(`/api/order/user/${userId}`)
+    .then(response => {
+        console.log("Received orders data:", response.data);
+        allOrders = response.data.order;
+        const ordersTable = document.getElementById('ordersTable');
+        const noOrdersMessage = document.getElementById('noOrdersMessage');
+
+        if (allOrders.length === 0) {
+            noOrdersMessage.style.display = 'block';
+            ordersTable.style.display = 'none';
+        } else {
+            noOrdersMessage.style.display = 'none';
+            ordersTable.style.display = 'table';
+            renderOrdersByStatus('Processing'); // Default to "To Ship"
+        }
+    })
+    .catch(error => {
+        console.error('Error fetching orders:', error);
+    });
+    
 function renderOrdersByStatus(status) {
     const ordersBody = document.getElementById('ordersBody');
     ordersBody.innerHTML = ''; // Clear current rows
@@ -43,25 +63,6 @@ function renderOrdersByStatus(status) {
         }
     });
 }
-
-axios.get(`/api/order/user/${userId}`)
-    .then(response => {
-        allOrders = response.data.order;
-        const ordersTable = document.getElementById('ordersTable');
-        const noOrdersMessage = document.getElementById('noOrdersMessage');
-
-        if (allOrders.length === 0) {
-            noOrdersMessage.style.display = 'block';
-            ordersTable.style.display = 'none';
-        } else {
-            noOrdersMessage.style.display = 'none';
-            ordersTable.style.display = 'table';
-            renderOrdersByStatus('Processing'); // Default to "To Ship"
-        }
-    })
-    .catch(error => {
-        console.error('Error fetching orders:', error);
-    });
 
 // Tab click handler
 document.querySelectorAll('#orderTabs .nav-link').forEach(tab => {
