@@ -49,7 +49,7 @@ class CartController extends Controller
             if (!$cart) {
                 return response()->json([
                     'message' => "User's cart ID not found"
-                ], 404);
+                ], 200);
             }
 
             return response()->json([
