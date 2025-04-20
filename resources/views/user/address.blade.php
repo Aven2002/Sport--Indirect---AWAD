@@ -1,6 +1,7 @@
 @extends('layouts.user')
 
 @section('content')
+@include('components.toast')
 <div class="container py-4">
     <h2 class="fw-bold text-center mb-4">Manage Your Addresses</h2>
 

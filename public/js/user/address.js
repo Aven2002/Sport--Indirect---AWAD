@@ -59,15 +59,15 @@ function deleteAddress(addressId) {
     axios.delete(`/api/address/${addressId}`)
         .then(response => {
             if (response.status === 200) {
-                alert("Address deleted successfully.");
+                showToast("Address deleted successfully.", "failure");
                 fetchAddresses();
             } else {
-                alert("Failed to delete the address. Please try again.");
+                showToast("Failed to delete the address. Please try again", "failure");
             }
         })
         .catch(error => {
             console.error("Error deleting address:", error);
-            alert("There was an error. Please try again.");
+            showToast("There was an error. Please try again.", "failure");
         });
 }
 
@@ -84,11 +84,11 @@ form.addEventListener('submit', async function(e) {
         const response = await axios.post('/api/address', data);
 
         if (response.status === 201) {
-            alert("Address added successfully.");
+            showToast("Address added successfully.", "success");
             form.reset();
             fetchAddresses();
         } else {
-            alert("Failed to add address.");
+            showToast("Failed to add address", "failure");
         }
     } catch (error) {
         if (error.response && error.response.status === 422) {
@@ -100,7 +100,7 @@ form.addEventListener('submit', async function(e) {
             alert("Validation Error:\n" + messages);
         } else {
             console.error("Error adding address:", error);
-            alert("Something went wrong. Please check your input.");
+            showToast("Something went wrong. Please check your input", "failure");
         }
     }
 });
@@ -111,12 +111,12 @@ function setDefaultAddress(addressId) {
             if (response.status === 200) {
                 fetchAddresses(); // Refresh the address list
             } else {
-                alert("Failed to set default address.");
+                showToast("Failed to set default address", "failure");
             }
         })
         .catch(error => {
             console.error("Error setting default address:", error);
-            alert("Something went wrong. Please try again.");
+            showToast("Something went wrong. Please try again.", "failure");
         });
 }
 

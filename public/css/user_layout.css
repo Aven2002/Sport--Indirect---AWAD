@@ -23,3 +23,35 @@
     padding-left: 30px !important;
     padding-right: 30px !important;
 }
+
+@keyframes jump {
+    0%   { transform: translateY(0); }
+    30%  { transform: translateY(-6px); }
+    50%  { transform: translateY(0); }
+    70%  { transform: translateY(-4px); }
+    100% { transform: translateY(0); }
+  }
+  
+  .jump-hover:hover {
+    animation: jump 0.6s ease;
+  }
+
+  @keyframes jumpLoop {
+    0%, 100% {
+      transform: translateY(0);
+    }
+    30% {
+      transform: translateY(-8px);
+    }
+    50% {
+      transform: translateY(0);
+    }
+    70% {
+      transform: translateY(-4px);
+    }
+  }
+  
+  .jump-loop {
+    animation: jumpLoop 1s ease-in-out infinite;
+    display: inline-block;
+  }

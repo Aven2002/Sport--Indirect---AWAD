@@ -24,12 +24,12 @@
                 <div class="collapse navbar-collapse" id="mainNavbar">
                     <ul class="navbar-nav ms-auto gap-3 align-items-center">
                         <li class="nav-item">
-                            <a class="nav-link text-white fw-medium" href="{{ route('landing') }}">Home</a>
+                            <a class="nav-link text-white fw-medium jump-hover" href="{{ route('landing') }}">Home</a>
                         </li>
 
                         {{-- Sports Dropdown --}}
                         <li class="nav-item dropdown">
-                            <a class="nav-link dropdown-toggle text-white fw-medium" href="#" id="sportsDropdown" role="button" data-bs-toggle="dropdown">
+                            <a class="nav-link dropdown-toggle text-white fw-medium jump-hover" href="#" id="sportsDropdown" role="button" data-bs-toggle="dropdown">
                                 Sports
                             </a>
                             <ul class="dropdown-menu shadow rounded-3" aria-labelledby="sportsDropdown">
@@ -44,7 +44,7 @@
 
                         {{-- Brands Dropdown --}}
                         <li class="nav-item dropdown">
-                            <a class="nav-link dropdown-toggle text-white fw-medium" href="#" id="brandsDropdown" role="button" data-bs-toggle="dropdown">
+                            <a class="nav-link dropdown-toggle text-white fw-medium jump-hover" href="#" id="brandsDropdown" role="button" data-bs-toggle="dropdown">
                                 Brands
                             </a>
                             <ul class="dropdown-menu shadow rounded-3" aria-labelledby="brandsDropdown">
@@ -58,7 +58,7 @@
 
                         {{-- Category Dropdown --}}
                         <li class="nav-item dropdown">
-                            <a class="nav-link dropdown-toggle text-white fw-medium" href="#" id="brandsDropdown" role="button" data-bs-toggle="dropdown">
+                            <a class="nav-link dropdown-toggle text-white fw-medium jump-hover" href="#" id="brandsDropdown" role="button" data-bs-toggle="dropdown">
                                 Categories
                             </a>
                             <ul class="dropdown-menu shadow rounded-3" aria-labelledby="brandsDropdown">
@@ -74,8 +74,9 @@
                         </li>
 
                         {{-- My Account Dropdown --}}
+                        @auth
                         <li class="nav-item dropdown">
-                            <a class="nav-link dropdown-toggle text-white fw-medium" href="#" id="accountDropdown" role="button" data-bs-toggle="dropdown">
+                            <a class="nav-link dropdown-toggle text-white fw-medium jump-hover" href="#" id="accountDropdown" role="button" data-bs-toggle="dropdown">
                                 My Account
                             </a>
                             <ul class="dropdown-menu shadow rounded-3" aria-labelledby="accountDropdown">
@@ -91,6 +92,12 @@
                                 </div>
                             </ul>
                         </li>
+                        @endauth
+                        @guest
+                            <li class="nav-item">
+                                <a class="nav-link text-white fw-medium jump-loop" href="{{ route('login') }}">Login</a>
+                            </li>
+                        @endguest
                     </ul>
                 </div>
             </div>
