@@ -24,6 +24,10 @@ function displayTable() {
     const tableBody = document.querySelector("#orderTableBody");
     tableBody.innerHTML = "";
 
+    if (orders.length === 0) {
+      tableBody.innerHTML = `<tr><td colspan="12" class="text-center text-muted">No orders available.</td></tr>`;
+      return;
+  }
     orders.forEach(order => {
         let row = `
             <tr>
