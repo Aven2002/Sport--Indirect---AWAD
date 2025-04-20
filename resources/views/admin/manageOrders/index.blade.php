@@ -91,7 +91,7 @@
                             <option value="Processing">Processing</option>
                             <option value="Shipping">Shipping</option>
                             <option value="Completed">Completed</option>
-                            <option value="Return & Refund">Return & Refund</option>
+                            <option value="Return">Return & Refund</option>
                         </select>
                     </div>
 

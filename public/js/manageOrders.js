@@ -127,7 +127,6 @@ window.deleteOrder = function (id) {
     axios.get(`/api/order/${id}`)
         .then(response => {
             const order = response.data.order;
-            console.log(order);
 
             if (!order) {
                 alert("Order not found");
