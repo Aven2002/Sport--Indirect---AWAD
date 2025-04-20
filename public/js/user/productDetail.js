@@ -96,7 +96,7 @@ document.querySelector('.btn-outline-dark').addEventListener('click', function (
   }
 
   if (!cartId) {
-    showToast("Cart ID not loaded yet ", "failure");
+    showToast("Please login first to access your cart.", "failure");
     return;
   }
 
@@ -129,7 +129,7 @@ document.querySelector('.checkout-btn').addEventListener('click', function () {
     }
 
     if (!cartId) {
-        showToast("Cart ID not loaded yet", "failure");
+        showToast("Please login first to checkout the product.", "failure");
         return;
     }
     const checkoutItem = [{
