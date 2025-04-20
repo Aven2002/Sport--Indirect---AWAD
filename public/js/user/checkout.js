@@ -2,7 +2,8 @@ document.addEventListener("DOMContentLoaded", async () => {
     // Select the Place Order button
     const placeOrderButton = document.getElementById('placeOrder-btn');
     const items = JSON.parse(localStorage.getItem('checkoutItems') || "[]"); // Data from local storage from other view
-    
+    const cartDetailId = items.length > 0 ? items.map(item => item.id) : null;
+
     placeOrderButton.addEventListener('click', async (e) => {
         e.preventDefault();  // Prevent default form submission
     
@@ -49,6 +50,20 @@ document.addEventListener("DOMContentLoaded", async () => {
                 totalPrice.value = "0.00";
                 itemsField.value = "";
                 placeOrderButton.disabled = true;
+
+                // If have id mean checkout from cart since product will i didnt pass the cartDetail_id, so remove from cart
+                if (cartDetailId.length > 0) {
+                    cartDetailId.forEach(cartItemId => {
+                        axios.delete(`/api/cartDetail/${cartItemId}`)
+                            .then(response => {
+                                console.log('Item removed from cart:', response);
+                            })
+                            .catch(error => {
+                                console.error('Error removing item from cart:', error);
+                            });
+                    });
+                }                
+
             } else {
                 showToast("Failed to place the order. Please try again", "failure");
             }
