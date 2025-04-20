@@ -24,5 +24,4 @@ class User extends Authenticatable
         'password',  // Hide the password attribute
         'remember_token',  // Hide the remember token
     ];
-
 }

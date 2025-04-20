@@ -15,7 +15,6 @@ class CartDetail extends Model
         'quantity'
     ];
 
-    //To automatically retrieve product details when fetching cart items
     public function product()
     {
         return $this->belongsTo(Product::class);
