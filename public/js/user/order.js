@@ -1,8 +1,8 @@
 let allOrders = []; 
+let currentStatus = 'Processing'; 
 
 axios.get(`/api/order/user/${userId}`)
     .then(response => {
-        console.log("Received orders data:", response.data);
         allOrders = response.data.order;
         const ordersTable = document.getElementById('ordersTable');
         const noOrdersMessage = document.getElementById('noOrdersMessage');
@@ -21,7 +21,7 @@ axios.get(`/api/order/user/${userId}`)
     });
     
 function renderOrdersByStatus(status) {
-    const ordersBody = document.getElementById('ordersBody');
+    currentStatus = status; // track current tab
     ordersBody.innerHTML = ''; // Clear current rows
 
     const filteredOrders = allOrders.filter(o => o.status === status);
@@ -49,13 +49,26 @@ function renderOrdersByStatus(status) {
                 imgHtml = `<img src="/images/${imgPath}" alt="Product" style="width: 60px; height: auto;">`;
             }
 
+            let actionButton = '';
+            if (order.status === 'Return') {
+                actionButton = `
+                    <button onclick="handleCancelReturn(this)" class="btn btn-link text-danger" data-id="${order.id}">Cancel</button>
+                `;
+            } else {
+                actionButton = `
+                    <button onclick="handleReturnRefund(this)" class="btn btn-link" data-id="${order.id}">Return/Refund</button>
+                `;
+            }
+
             const row = document.createElement('tr');
             row.innerHTML = `
                 <td>${imgHtml}</td>
                 <td>${contactInfo}<br><small>${fullAddress}</small></td>
                 <td>${order.paymentMethod}</td>
                 <td>$${parseFloat(order.totalPrice).toFixed(2)}</td>
-                <td>${order.status}</td>
+                 <td class="text-center">
+                      ${actionButton}
+                </td>
             `;
             ordersBody.appendChild(row);
         } catch (err) {
@@ -74,3 +87,43 @@ document.querySelectorAll('#orderTabs .nav-link').forEach(tab => {
         renderOrdersByStatus(status);
     });
 });
+
+function handleReturnRefund(button) {
+    const orderId = button.getAttribute('data-id');
+
+    axios.put(`/api/order/${orderId}`, {
+        status: 'Return'
+    })
+    .then(() => {
+        showToast("Return and Refund request submitted", "success");
+        return axios.get(`/api/order/user/${userId}`);
+    })
+    .then(res => {
+        allOrders = res.data.order;
+        renderOrdersByStatus(currentStatus);
+    })
+    .catch(error => {
+        console.error("Error during refund request:", error); 
+        showToast("Failed to make return and refund request", "failure");
+    });
+}
+
+function handleCancelReturn(button) {
+    const orderId = button.getAttribute('data-id');
+
+    axios.put(`/api/order/${orderId}`, {
+        status: 'Processing'
+    })
+    .then(() => {
+        showToast("Return cancelled request submitted will process", "success");
+        return axios.get(`/api/order/user/${userId}`);
+    })
+    .then(res => {
+        allOrders = res.data.order;
+        renderOrdersByStatus(currentStatus);
+    })
+    .catch(error => {
+        console.error("Error cancelling return:", error);
+        showToast("Failed to cancel return", "failure");
+    });
+}

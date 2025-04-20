@@ -3,7 +3,7 @@
     <x-auth-session-status class="mb-4" :status="session('status')" />
 
     <h1 class="text-7xl font-bold text-center text-gray-800 mb-6 border-b pb-2 ">
-        Log in to your account
+        Log in 
     </h1>
 
     <form method="POST" action="{{ route('login') }}">
