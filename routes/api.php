@@ -6,7 +6,7 @@ use App\Http\Controllers\CartController;
 use App\Http\Controllers\CartDetailController;
 use App\Http\Controllers\FeedbackController;
 use App\Http\Controllers\StoreController;
-use App\Http\Controllers\OrderController;
+
 use App\Http\Controllers\ProductController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\FileUploadController;
@@ -38,7 +38,7 @@ Route::resource('stores',StoreController::class);
 
 //Order
 Route::get('/order/user/{id}',[OrderController::class,'getUserOrder']);
-Route::resource('order',OrderController::class);
+
 
 //Product
 Route::get('/product/brand',[ProductController::class,'getProductBrand']);

@@ -5,10 +5,14 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use Illuminate\Validation\ValidationException;
 use App\Models\Order;
+use App\Models\User;
 use Illuminate\Support\Facades\Log;
+use Illuminate\Foundation\Auth\Access\AuthorizesRequests;
 
 class OrderController extends Controller
 {
+    use AuthorizesRequests; 
+
     /**
      * Retrieve all order records
      */
@@ -72,11 +76,14 @@ class OrderController extends Controller
      */
     public function update(Request $request, $id)
     {
+
         $order = Order::find($id);
 
         if (!$order) {
-            return response()->json(['message' => 'Order not found'], 404);
+            return response()->json(['message' => 'Order not found'], 200);
         }
+
+        $this->authorize('updateStatus',$order);
 
         $order->status = $request->input('status');
         $order->save();
