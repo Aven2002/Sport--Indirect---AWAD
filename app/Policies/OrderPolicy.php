@@ -25,6 +25,10 @@ class OrderPolicy
         // If none of the conditions are met, return a forbidden response
         return response()->json(['message' => 'This action is unauthorized.'], 403);
     }
-    
+
+    public function viewUserOrders(User $user, $userId)
+    {
+        return $user->id === (int) $userId || $user->userRole === 'Admin';
+    }
 
 }
