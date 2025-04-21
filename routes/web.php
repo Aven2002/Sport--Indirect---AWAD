@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\ProfileController;
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\OrderController;
 
 Route::middleware('auth')->group(function () {
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
@@ -37,5 +38,3 @@ Route::view('/user/store', 'user.store')->name('user.store');
 Route::view('/user/product','user.product')->name('user.product');
 Route::view('/user/product/detail/{id}','user.productDetail')->name('user.productDetail');
 Route::view('/user/aboutUs','user.aboutUs')->name('user.aboutUs');
-
-Route::view('/user/help','user.help')->name('user.help');
