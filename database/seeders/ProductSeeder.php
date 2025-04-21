@@ -420,7 +420,7 @@ class ProductSeeder extends Seeder
                 'productBrand' => 'VICTOR',
                 'has_sizes' => true,
                 'description' => "A lightweight and durable sport shoe in White, made with PU Leather and Double Mesh for breathability and comfort. Features a Rubber Sole for excellent grip. Equipped with EVA, EnergyMax 3.0, and TPU for superior cushioning, stability, and energy return. Available in sizes 220mm to 300mm.",
-                'stock' => 8,
+                'stockSizes' => ['US 6' => 2,'US 7' => 2,'US 8' => 0, 'US 10' => 7,],
                 'imgPath' => 'Products/Footwear/VICTOR x CRAYON SHINCHAN Badminton Shoes A39CS.png',
                 'price' => 449.00,
             ],
